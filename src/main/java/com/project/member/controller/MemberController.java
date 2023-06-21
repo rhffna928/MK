@@ -6,13 +6,12 @@ import com.project.member.repository.MemberRepository;
 import com.project.member.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.security.NoSuchAlgorithmException;
 
 @Controller
 @RequestMapping("/member")
@@ -40,16 +39,19 @@ public class MemberController {
     }
 
     @PostMapping("/login")
-    public String login(@ModelAttribute MemberDTO memberDTO,
-                        HttpSession session) {
+    public String login(@ModelAttribute MemberDTO memberDTO, HttpServletRequest request
+                        ) throws NoSuchAlgorithmException {
         boolean loginResult = memberService.login(memberDTO);
 
+        String viewPage;
         if (loginResult) {
-            session.setAttribute("loginEmail", memberDTO.getMemberEmail());
-            return "index";
+            HttpSession session = request.getSession();
+            session.setAttribute("m_id",memberDTO.getM_id());
+            session.setAttribute("m_pw",memberDTO.getM_pw());
+            viewPage = "redirect:index";
         } else {
-            return "login";
+            viewPage = "login";
         }
-
+        return viewPage;
     }
 }
