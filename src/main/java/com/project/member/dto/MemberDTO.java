@@ -10,7 +10,6 @@ import java.util.Date;
 @Setter
 @ToString
 public class MemberDTO {
-
     private Long m_idx;
     private String m_id;
     private String m_pw;
