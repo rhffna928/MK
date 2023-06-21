@@ -1,4 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<!DOC TYPE html>
 <html>
 
 <%@ include file="/resources/include/header.jsp" %>
@@ -17,4 +19,3 @@
     </section>
 
 <%@ include file="/resources/include/footer.jsp" %>
-</html>
