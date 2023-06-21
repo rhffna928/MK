@@ -45,7 +45,7 @@ public class MemberController {
         boolean loginResult = memberService.login(memberDTO);
 
         if (loginResult) {
-            session.setAttribute("loginEmail", memberDTO.getMemberEmail());
+            session.setAttribute("loginId", memberDTO.getM_id());
             return "index";
         } else {
             return "login";

@@ -4,10 +4,10 @@
 
 <mapper namespace="Member">
     <insert id="save" parameterType="member">
-        insert into member_table(memberEmail, memberPassword, memberName, memberAge, memberMobile)
-        values (#{memberEmail}, #{memberPassword}, #{memberName}, #{memberAge}, #{memberMobile})
+        insert into members(m_email, m_id, m_pw, m_tel, m_jumin, m_gender)
+        values (#{m_email}, #{m_id}, #{m_pw}, #{m_tel}, #{m_jumin}, #{m_gender})
     </insert>
     <select id="login" parameterType="member" resultType="member">
-        select * from member_table where memberEmail = #{memberEmail} and memberPassword = #{memberPassword}
+        select * from members where m_id = #{m_id} and m_pw = #{m_pw}
     </select>
 </mapper>
