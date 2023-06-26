@@ -1,4 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 
     <head>
@@ -35,16 +36,34 @@
                             </ul>
                         </li>
                     </ul>
-                    <form class="d-flex" action="/member/save" method="get">
-                        <button class="btn btn-outline-dark" type="submit">
-                        회원가입
-                        </button>
-                    </form>
-                    <form class="d-flex" action="/member/login" method="post">
-                        <button class="btn btn-outline-dark" type="submit">
-                        로그인
-                        </button>
-                    </form>
+                    <c:choose>
+                        <c:when test="${m_id != null}"><!-- 로그인이 이루어진 경우 -->
+                            <ul class="user-login">
+                                <li>
+                                    <p><span>${m_id}</span>님 환영합니다!</p>
+                                </li>
+                                <li>
+                                    <a href="${pageContext.request.contextPath}/logout.do">로그아웃</a>
+                                </li>
+                                <li>
+                                    <a href="${pageContext.request.contextPath}/Notice">고객센터</a>
+                                </li>
+                            </ul>
+                        </c:when>
+                        <c:otherwise>
+                            <ul class="user-login">  <!--로그인 X 상태  -->
+                                <li>
+                                    <a href="${pageContext.request.contextPath}/login.do">로그인</a>
+                                </li>
+                                <li>
+                                    <a href="${pageContext.request.contextPath}/save.do">회원가입</a>
+                                </li>
+                                <li >
+                                    <a href="${pageContext.request.contextPath}/Notice">고객센터</a>
+                                </li>
+                            </ul>
+                        </c:otherwise>
+                    </c:choose>
                     <form class="d-flex">
                         <button class="btn btn-outline-dark" type="submit">
                             <i class="bi-cart-fill me-1"></i>

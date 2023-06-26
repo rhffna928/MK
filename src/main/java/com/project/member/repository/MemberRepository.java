@@ -20,7 +20,7 @@ public class MemberRepository {
         return sql.selectOne("Member.login",memberDTO);
     }
 
-    public String searchid(MemberDTO memberDTO) {
-        return sql.selectOne("Member.searchid",memberDTO);
+    public String searchid(String memberDTO) {
+        return sql.selectOne("Member.searchId",memberDTO);
     }
 }

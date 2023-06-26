@@ -12,9 +12,9 @@ public class AjaxService {
     private MemberDTO memberDTO;
 
 
-    public String searchId(String mEmail) {
+    public String searchid(String mEmail) {
         String result;
-        result = memberRepository.searchid(memberDTO);
+        result = memberRepository.searchid(mEmail);
         System.out.println(result);
         return result;
     }

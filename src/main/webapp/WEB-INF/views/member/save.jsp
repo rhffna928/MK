@@ -1,24 +1,23 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
-<script src="http://code.jquery.com/jquery-latest.min.js"  integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous">
-</script>
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script>
     $(function(){
         $(document).ready(function(){
-            $('#m_pw').blur(function(){
-                $('#successPwChk2').text('');
+            $("#m_pw").blur(function(){
+                $("#successPwChk2").text('');
             });
-            $('#m_pw2').blur(function(){
-                if($('#m_pw').val() != $('#m_pw2').val()){
+            $("#m_pw2").blur(function(){
+                if($("#m_pw").val() != $("#m_pw2").val()){
                 result = "비밀번호가 일치하지 않습니다.";
-                $('.successPwChk2').html(result).css("color","red");
+                $(".successPwChk2").html(result).css("color","red");
                 $('#m_pw').val("").trigger("focus");
-                $('.pwChk').val(false);
+                $(".pwChk").val(false);
                 }else{
                     result = "비밀번호가 일치합니다.";
-                    $('.successPwChk2').html(result).css("color","green");
-                    $('.PwChk').val(true);
+                    $(".successPwChk2").html(result).css("color","green");
+                    $(".PwChk").val(true);
                 }return;
             });
         });
@@ -29,7 +28,7 @@
         <!-- Section-->
         <section class="py-5">
 
-            <form action="/member/save" method="post">
+            <form action="/save.do" method="post">
                 <input type="text" name="m_email" placeholder="이메일">
                 <input type="text" name="m_id" placeholder="아이디">
                 <input type="text" name="m_pw" placeholder="비밀번호" id="m_pw">

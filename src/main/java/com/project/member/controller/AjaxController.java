@@ -2,6 +2,7 @@ package com.project.member.controller;
 
 import com.project.member.service.AjaxService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -17,12 +18,12 @@ public class AjaxController {
         this.ajaxService = ajaxService;
     }
 
-    @PostMapping("/searchId")
-    public String searchId(@RequestParam("m_email") String m_email){
+    @PostMapping("/searchIdProcess.do")
+    public String searchIdProcess(@RequestParam("m_email") String m_email,Model model){
 
-        String result = ajaxService.searchId(m_email);
-        System.out.println("아이디는"+m_email);
-        return "searchId";
+        String result = ajaxService.searchid(m_email);
+        System.out.println("아이디는"+result);
+        return result;
     }
 
 }

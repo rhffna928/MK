@@ -13,7 +13,7 @@ public class MemberService {
     public int save(MemberDTO memberDTO) {
         return memberRepository.save(memberDTO);
     }
-
+    //로그인
     public boolean login(MemberDTO memberDTO) {
         MemberDTO loginMember = memberRepository.login(memberDTO);
         if(loginMember != null){
