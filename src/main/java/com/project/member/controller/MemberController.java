@@ -53,5 +53,11 @@ public class MemberController {
             viewPage = "login";
         }
         return viewPage;
+        }
+    @GetMapping("/searchId")
+    public String searchIdForm(){
+        return "searchId";
     }
+
+
 }
