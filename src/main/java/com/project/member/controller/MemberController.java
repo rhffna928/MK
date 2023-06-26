@@ -33,7 +33,7 @@ public class MemberController {
     public String save(@ModelAttribute MemberDTO memberDTO){
         int saveResult = memberService.save(memberDTO);
         if(saveResult > 0){
-            return "/login.do";
+            return "/member/login";
         }else{
             return "/member/save";
         }
