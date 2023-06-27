@@ -8,7 +8,7 @@
         values (#{m_email}, #{m_id}, #{m_pw}, #{m_tel}, #{m_jumin}, #{m_gender})
     </insert>
     <select id="login" parameterType="member" resultType="member">
-        select * from members where m_id = #{m_id} and m_pw = #{m_pw}
+        select count(*) as m_auth, m_grade,m_id from members where m_id = #{m_id} and m_pw = #{m_pw}
     </select>
     <select id="searchId" parameterType="string" resultType="string">
         select m_id from members where m_email = #{m_email}

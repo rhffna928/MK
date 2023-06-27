@@ -13,6 +13,7 @@ import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.security.NoSuchAlgorithmException;
+import java.util.HashMap;
 
 @Controller
 @RequiredArgsConstructor
@@ -47,7 +48,15 @@ public class MemberController {
     @PostMapping("/login.do")
     public String login(@ModelAttribute MemberDTO memberDTO, HttpServletRequest request
                         ) throws NoSuchAlgorithmException {
-        boolean loginResult = memberService.login(memberDTO);
+
+        HashMap<String, String> logininfo = new HashMap<String, String>();
+        logininfo.put("m_id",memberDTO.getM_id());
+        logininfo.put("m_pw",memberDTO.getM_pw());
+
+        HashMap<String, Long> resultMap = memberService.login(logininfo);
+
+        Long m_grade = Integer.parseInt(resultMap.get("m_grade"));
+        String m_id = resultMap.get("m_id");
 
         String viewPage;
 

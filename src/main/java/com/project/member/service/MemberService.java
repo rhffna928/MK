@@ -5,6 +5,8 @@ import com.project.member.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
+
 @Service
 @RequiredArgsConstructor
 public class MemberService {
@@ -14,12 +16,7 @@ public class MemberService {
         return memberRepository.save(memberDTO);
     }
     //로그인
-    public boolean login(MemberDTO memberDTO) {
-        MemberDTO loginMember = memberRepository.login(memberDTO);
-        if(loginMember != null){
-            return true;
-        }else{
-            return false;
-        }
+    public HashMap<String, Long> login(HashMap<String, String>logininfo) {
+        return memberRepository.login(logininfo);
     }
 }

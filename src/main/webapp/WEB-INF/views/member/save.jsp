@@ -28,7 +28,7 @@
         <!-- Section-->
         <section class="py-5">
 
-            <form action="/save.do" method="post">
+            <form action="${pageContext.request.contextPath}/save.do" method="post">
                 <input type="text" name="m_email" placeholder="이메일">
                 <input type="text" name="m_id" placeholder="아이디">
                 <input type="text" name="m_pw" placeholder="비밀번호" id="m_pw">
