@@ -46,27 +46,14 @@ public class MemberController {
 
     /*로그인*/
     @PostMapping("/login.do")
-    public String login(@ModelAttribute MemberDTO memberDTO, HttpServletRequest request
+    public String login(@ModelAttribute MemberDTO memberDTO, HttpServletRequest request, HttpSession session
                         ) throws NoSuchAlgorithmException {
 
-        HashMap<String, String> logininfo = new HashMap<String, String>();
-        logininfo.put("m_id",memberDTO.getM_id());
-        logininfo.put("m_pw",memberDTO.getM_pw());
-
-        HashMap<String, Long> resultMap = memberService.login(logininfo);
-
-        Long m_grade = Integer.parseInt(resultMap.get("m_grade"));
-        String m_id = resultMap.get("m_id");
-
+        String loginResult = memberService.login(memberDTO, session);
+        System.out.println(loginResult + memberDTO);
         String viewPage;
 
-        if (loginResult) {
-            HttpSession session = request.getSession();
-            session.setAttribute("m_id",memberDTO.getM_id());
-            session.setAttribute("m_idx",memberDTO.getM_idx());
-            session.setAttribute("m_email",memberDTO.getM_email());
-            session.setAttribute("m_grade",memberDTO.getM_grade());
-            session.setAttribute("m_gender",memberDTO.getM_gender());
+        if (loginResult != null) {
             viewPage = "redirect:/index.do";
         } else {
             viewPage = "/member/login";
