@@ -19,10 +19,8 @@ public class MemberRepository {
         return sql.insert("Member.save",memberDTO);
     }
     //로그인
-    public String login(MemberDTO memberDTO) {
+    public MemberDTO login(MemberDTO memberDTO) {
         return sql.selectOne("Member.login",memberDTO);
-
-
     }
     //아이디찾기
     public String searchid(String memberDTO) {

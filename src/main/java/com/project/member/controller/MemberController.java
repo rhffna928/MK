@@ -3,12 +3,15 @@ package com.project.member.controller;
 import com.mysql.cj.protocol.x.Notice;
 import com.project.member.dto.MemberDTO;
 import com.project.member.repository.MemberRepository;
+import com.project.member.service.EncryptPwd;
 import com.project.member.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -31,10 +34,19 @@ public class MemberController {
     }
 
     @PostMapping("/save.do")
-    public String save(@ModelAttribute MemberDTO memberDTO){
+    public String save(@ModelAttribute MemberDTO memberDTO) throws NoSuchAlgorithmException {
+
+        String pwd = memberDTO.getM_pw();
+        EncryptPwd encryptPwd = new EncryptPwd(pwd);
+        pwd = encryptPwd.getPwd();
+
+        memberDTO.setM_pw(pwd);
+
         int saveResult = memberService.save(memberDTO);
+
+
         if(saveResult > 0){
-            return "/member/login";
+            return "member/login";
         }else{
             return "/member/save";
         }
@@ -46,20 +58,30 @@ public class MemberController {
 
     /*로그인*/
     @PostMapping("/login.do")
-    public String login(@ModelAttribute MemberDTO memberDTO, HttpServletRequest request, HttpSession session
-                        ) throws NoSuchAlgorithmException {
+    public String login(@ModelAttribute MemberDTO memberDTO, HttpServletRequest request,
+                        Model model) throws NoSuchAlgorithmException {
 
-        String loginResult = memberService.login(memberDTO, session);
-        System.out.println(loginResult + memberDTO);
+        EncryptPwd encryptPwd = new EncryptPwd(memberDTO.getM_pw());
+        memberDTO.setM_pw(encryptPwd.getPwd());
+
+        MemberDTO loginResult = memberService.login(memberDTO);
+        HttpSession session = request.getSession();
+
+
+
         String viewPage;
 
         if (loginResult != null) {
+            session.setAttribute("member",loginResult);
+
             viewPage = "redirect:/index.do";
         } else {
             viewPage = "/member/login";
         }
+        System.out.println(loginResult);
         return viewPage;
-        }
+    }
+
 
     @GetMapping("/logout.do")
     public String logout(HttpServletRequest request) {
@@ -72,6 +94,14 @@ public class MemberController {
     public String searchIdForm(){
         return "/member/searchId";
     }
+
+
+
+
+
+
+
+
 
 
 }

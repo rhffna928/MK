@@ -18,14 +18,9 @@ public class MemberService {
     }
     
     //로그인
-    public String login(MemberDTO memberDTO, HttpSession session) {
-        String loginResult = memberRepository.login(memberDTO);
+    public MemberDTO login(MemberDTO memberDTO) {
 
-        if(loginResult != null){
-            session.setAttribute("m_id",memberDTO.getM_id());
-            session.setAttribute("m_id",memberDTO.getM_grade());
-        }
-        return loginResult;
+        return memberRepository.login(memberDTO);
 
     }
 }

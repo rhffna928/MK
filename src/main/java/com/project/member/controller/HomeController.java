@@ -6,6 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 @Controller
 public class HomeController {
@@ -16,7 +17,7 @@ public class HomeController {
     }
 
     @GetMapping("/index.do")
-    public String index2(Model model, HttpServletRequest request){
+    public String index2(Model model, HttpServletRequest request, HttpSession session){
         return "index"; // => index.jsp 출력
     }
 }
