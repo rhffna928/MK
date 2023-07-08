@@ -95,7 +95,10 @@ public class MemberController {
         return "/member/searchId";
     }
 
-
+    @GetMapping("/searchPw.do")
+    public String searchPwForm(){
+        return "/member/searchPw";
+    }
 
 
 

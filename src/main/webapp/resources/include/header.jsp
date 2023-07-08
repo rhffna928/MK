@@ -61,6 +61,9 @@
                                 <li>
                                     <a href="${pageContext.request.contextPath}/memberList.do">회원관리</a>
                                 </li>
+                                <li>
+                                    <a href="${pageContext.request.contextPath}/productAdd.do">상품등록</a>
+                                </li>
                             </ul>
                         </c:when>
                         <c:otherwise>

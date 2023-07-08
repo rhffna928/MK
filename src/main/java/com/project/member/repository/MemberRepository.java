@@ -26,4 +26,8 @@ public class MemberRepository {
     public String searchid(String memberDTO) {
         return sql.selectOne("Member.searchId",memberDTO);
     }
+
+    public String searchpw(HashMap<String, String> map) {
+        return sql.selectOne("Member.searchPw",map);
+    }
 }

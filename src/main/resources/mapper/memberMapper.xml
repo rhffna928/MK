@@ -3,15 +3,22 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="Member">
+    <!--회원가입-->
     <insert id="save" parameterType="member">
         insert into members(m_email, m_id, m_pw, m_tel, m_jumin, m_gender)
         values (#{m_email}, #{m_id}, #{m_pw}, #{m_tel}, #{m_jumin}, #{m_gender})
     </insert>
+    <!--로그인-->
     <select id="login" parameterType="member" resultType="member">
         select * from members where m_id = #{m_id} and m_pw = #{m_pw}
     </select>
-
+    <!--아이디찾기-->
     <select id="searchId" parameterType="string" resultType="string">
         select m_id from members where m_email = #{m_email}
     </select>
+    <!--비밀번호찾기-->
+    <select id="searchPw" parameterType="map" resultType="string">
+        select m_pw from members where m_id = ${m_id} and m_tel = ${m_tel}
+    </select>
+
 </mapper>
