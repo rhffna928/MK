@@ -15,7 +15,7 @@ public class AjaxService {
 
     private final AdminRepository adminRepository;
     private final MemberRepository memberRepository;
-    private final MemberDTO memberDTO;
+    private MemberDTO memberDTO;
 
 
     public String searchid(String mEmail) {

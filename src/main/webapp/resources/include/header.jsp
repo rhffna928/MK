@@ -37,7 +37,7 @@
                         </li>
                     </ul>
                     <c:choose>
-                        <c:when test="${member != null}"><!-- 로그인이 이루어진 경우 -->
+                        <c:when test="${member.m_grade == 1}"><!-- 로그인이 이루어진 경우 -->
                             <ul class="user-login">
                                 <li>
                                     <p><span>${member.m_id}</span>님 환영합니다!</p>
