@@ -34,6 +34,10 @@ public class ProductController {
     @PostMapping("productAddProcess.do")
     public String productAddForm(@ModelAttribute ProductDTO productDTO, MultipartHttpServletRequest mRequest, @RequestParam Map<String, String> param,
                                  Model model, HttpServletRequest request)throws IllegalStateException, IOException {
+
+        /*이미지추가 부분..*/
+
+        /**/
         String p_category_idx = "";
         int
         int addresult = productService.productadd(productDTO);

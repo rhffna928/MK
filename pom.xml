@@ -103,7 +103,12 @@
       <artifactId>tomcat-dbcp</artifactId>
       <version>8.5.81</version>
     </dependency>
-
+    <!-- https://mvnrepository.com/artifact/net.coobird/thumbnailator -->
+    <dependency>
+      <groupId>net.coobird</groupId>
+      <artifactId>thumbnailator</artifactId>
+      <version>0.4.8</version>
+    </dependency>
     <!-- fileupload -->
     <dependency>
       <groupId>commons-fileupload</groupId>
