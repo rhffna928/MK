@@ -4,5 +4,7 @@
 <configuration>
     <typeAliases>
         <typeAlias type="com.project.member.dto.MemberDTO" alias="member"></typeAlias>
+        <typeAlias type="com.project.member.dto.ProductDTO" alias="product"></typeAlias>
+
     </typeAliases>
 </configuration>

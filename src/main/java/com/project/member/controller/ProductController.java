@@ -39,7 +39,7 @@ public class ProductController {
 
         /**/
         String p_category_idx = "";
-        int
+        
         int addresult = productService.productadd(productDTO);
         if(addresult > 0){
             return "/product/productAdd";
