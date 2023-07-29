@@ -10,6 +10,9 @@
     <annotation-driven />
 
     <!-- Handles HTTP GET requests for /resources/** by efficiently serving up static resources in the ${webappRoot}/resources directory -->
+    <beans:bean class="java.lang.String" id="uploadPath">
+        <beans:constructor-arg value="C:\Users\rhffn\eclipse-workspace\MJ\src\main\webapp\resources\images"></beans:constructor-arg>
+    </beans:bean>
     <resources mapping="/resources/**" location="/resources/"/>
 
     <!-- Resolves views selected for rendering by @Controllers to .jsp resources in the /WEB-INF/views directory -->
@@ -24,6 +27,7 @@
     <context:component-scan base-package="com.project.member.repository" />
     <context:component-scan base-package="com.project.member.service" />
     <context:component-scan base-package="com.project.member.dto" />
+    <context:component-scan base-package="com.project.member.utils" />
 
 
 </beans:beans>

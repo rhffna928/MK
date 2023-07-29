@@ -3,18 +3,24 @@ package com.project.member.controller;
 
 import com.project.member.dto.ProductDTO;
 import com.project.member.service.ProductService;
+import com.project.member.utils.UploadFileUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.ImportResource;
+import org.springframework.jmx.export.annotation.ManagedResource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.io.File;
 import java.io.IOException;
 import java.util.Map;
 
@@ -23,6 +29,8 @@ import java.util.Map;
 public class ProductController {
 
     private final ProductService productService;
+    @Resource(name="uploadPath")
+    private String uploadPath;
 
     @GetMapping("productAdd.do")
     public String productAdd(HttpSession session){
@@ -32,15 +40,49 @@ public class ProductController {
     }
 
     @PostMapping("productAddProcess.do")
-    public String productAddForm(@ModelAttribute ProductDTO productDTO, MultipartHttpServletRequest mRequest, @RequestParam Map<String, String> param,
-                                 Model model, HttpServletRequest request)throws IllegalStateException, IOException {
+    public String productAddForm(@ModelAttribute ProductDTO productDTO, MultipartHttpServletRequest mRequest,
+                                 @RequestParam Map<String, String> param, Model model,
+                                 MultipartFile file, HttpServletRequest request) throws Exception {
 
         /*이미지추가 부분..*/
+        String imgUploadPath = uploadPath + File.separator + "imgUpload";
+        String ymdPath = UploadFileUtils.calPath(imgUploadPath);
+        String fileName = null;
+        if(file != null){
+            fileName = UploadFileUtils.fileUpload(imgUploadPath, file.getOriginalFilename(),file.getBytes(), ymdPath);
+        }else {
+            fileName = uploadPath + File.separator + "images" + File.separator + "non.png";
+        }
+        productDTO.setP_img1("'"+File.separator+"imgUpload"+ ymdPath + File.separator + fileName+"'");
+        productDTO.setP_img2("'"+File.separator +"imgUpload"+ymdPath+ File.separator + "s"+File.separator + "s_" + fileName+"'");
 
         /**/
         String p_category_idx = "";
-        
-        int addresult = productService.productadd(productDTO);
+        int p_category_l =  Integer.parseInt(param.get("p_category_l"));
+        if(p_category_l==1)
+        {
+            if(param.get("p_category_s").equals("개껌")) p_category_idx ="1";
+            else if(param.get("p_category_s").equals("스낵")) p_category_idx ="2";
+            else if(param.get("p_category_s").equals("뼈/육포")) p_category_idx ="3";
+            else if(param.get("p_category_s").equals("스틱")) p_category_idx ="4";
+            else if(param.get("p_category_s").equals("프리미엄")) p_category_idx ="5";
+            else if(param.get("p_category_s").equals("통살")) p_category_idx ="6";
+        }
+        else if(p_category_l==2)
+        {
+            if(param.get("p_category_s").equals("츄르")) p_category_idx ="7";
+            else if(param.get("p_category_s").equals("스낵")) p_category_idx ="8";
+            else if(param.get("p_category_s").equals("캣잎")) p_category_idx ="9";
+            else if(param.get("p_category_s").equals("스틱")) p_category_idx ="10";
+            else if(param.get("p_category_s").equals("프리미엄")) p_category_idx ="11";
+            else if(param.get("p_category_s").equals("통살")) p_category_idx ="12";
+        }
+
+
+        param.put("p_category_idx", p_category_idx);
+
+        int addresult = productService.productadd(param);
+
         if(addresult > 0){
             return "/product/productAdd";
         }else{

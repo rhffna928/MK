@@ -2,19 +2,10 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace = "Admin">
-    <!--회원리스트-->
-    <select id="m_list" resultType="member">
-        select * from members
-    </select>
-    <!--회원등급업-->
-    <update id="updateInfo" parameterType="map">
-        update members set m_grade = ${m_grade} where m_idx = ${m_idx}
-    </update>
-    <!--회원삭제-->
-    <delete id="deleteInfo" parameterType="list">
-        delete from members where m_idx in
-        <foreach collection="list" item="m_idx" open="(" separator="," close=")">${m_idx}</foreach>
-    </delete>
+<mapper namespace = "Product">
+    <insert id="add" parameterType="product">
+        insert into product(p_name, p_price, p_sale, p_img1, p_cnt, p_category_idx)
+        values(${p_name}, ${p_price}, ${p_sale}, ${p_img1}, ${p_cnt}, ${p_category_idx})
+    </insert>
 
 </mapper>

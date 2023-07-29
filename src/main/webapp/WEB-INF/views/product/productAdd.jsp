@@ -55,7 +55,7 @@
 
         <!-- Section-->
         <section class="py-5">
-            <form name="frm">
+            <form name="frm" method="post" enctype="multipart/form-data" action="${pageContext.request.contextPath}/productAddProcess.do" >
                 <table border="1"  style="margin-left:0;">
                     <tr>
                         <th>상품명</th>
@@ -117,7 +117,7 @@
                         </td>
                     </tr>
                 </table>
-                <input type="button" value="상품등록" onclick="check();">
+                <input type="submit" value="상품등록" >
             </form>
 
         </section>
