@@ -22,5 +22,5 @@ public class ProductDTO {
     private Date p_date;
     private int p_cnt;
     private String p_del;
-    private int p_category_idx;
+    private String p_category_idx;
 }
