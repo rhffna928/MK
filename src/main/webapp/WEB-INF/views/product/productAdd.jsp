@@ -27,6 +27,9 @@
 </script>
 <script>
 
+	var jsonData = JSON.parse('${p_category_idx}');
+	console.log(jsonData);
+
     function categoryChange(e){
         var clothes = ["------","상의","하의","신발","모자","원피스","양말","속옷","아우터"];
         var accessory = ["------","마스크","목걸이","팔찌","반지","벨트","스카프/반다나","장갑","기타 액세서리"];
@@ -69,9 +72,9 @@
                         <td>
                             <select class="form-select" name = "p_category_l" id="p_category_l" onchange="categoryChange(this)" style="margin-bottom:10px;">
                             	<option value="yet" >------</option>
-                            	<option value="1">의류</option>
-                                <option value="2">악세사리</option>
-                                <option value="3">리빙</option>
+                            	<option value="100">의류</option>
+                                <option value="200">악세사리</option>
+                                <option value="300">리빙</option>
                             </select>
                             <select class="form-select" name ="p_category_s" id="p_category_s" >
                             	<option value="yet" >------</option>

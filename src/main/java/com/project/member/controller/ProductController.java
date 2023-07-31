@@ -44,6 +44,8 @@ public class ProductController {
                                  @RequestParam Map<String, String> param, Model model,
                                  MultipartFile file, HttpServletRequest request) throws Exception {
 
+
+
         /*이미지추가 부분..*/
         String imgUploadPath = uploadPath + File.separator + "imgUpload";
         String ymdPath = UploadFileUtils.calPath(imgUploadPath);
