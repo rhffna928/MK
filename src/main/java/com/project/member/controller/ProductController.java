@@ -22,6 +22,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -44,6 +45,8 @@ public class ProductController {
                                  @RequestParam Map<String, String> param, Model model,
                                  MultipartFile file, HttpServletRequest request) throws Exception {
 
+        HttpSession session = request.getSession();
+        int m_idx = (int) session.getAttribute("midx");
 
 
         /*이미지추가 부분..*/
@@ -59,32 +62,38 @@ public class ProductController {
         productDTO.setP_img2("'"+File.separator +"imgUpload"+ymdPath+ File.separator + "s"+File.separator + "s_" + fileName+"'");
 
         /**/
-        String p_category_idx = "";
-        int p_category_l =  Integer.parseInt(param.get("p_category_l"));
-        if(p_category_l==1)
+        String p_cate_idx = "";
+        String p_cate_name =  param.get("p_cate_parent");
+        if(p_cate_idx == "100000")
         {
-            if(param.get("p_category_s").equals("개껌")) p_category_idx ="1";
-            else if(param.get("p_category_s").equals("스낵")) p_category_idx ="2";
-            else if(param.get("p_category_s").equals("뼈/육포")) p_category_idx ="3";
-            else if(param.get("p_category_s").equals("스틱")) p_category_idx ="4";
-            else if(param.get("p_category_s").equals("프리미엄")) p_category_idx ="5";
-            else if(param.get("p_category_s").equals("통살")) p_category_idx ="6";
+            if(param.get("p_cate_name").equals("")) p_cate_idx ="100000";
+            else if(param.get("p_cate_name").equals("스낵")) p_cate_idx ="101000";
+            else if(param.get("p_cate_name").equals("스낵")) p_cate_idx ="102000";
+            else if(param.get("p_cate_name").equals("뼈/육포")) p_cate_idx ="103000";
+            else if(param.get("p_cate_name").equals("스틱")) p_cate_idx ="104000";
+            else if(param.get("p_cate_name").equals("프리미엄")) p_cate_idx ="105000";
+            else if(param.get("p_cate_name").equals("통살")) p_cate_idx ="106000";
+            else if(param.get("p_cate_name").equals("프리미엄")) p_cate_idx ="107000";
+            else if(param.get("p_cate_name").equals("통살")) p_cate_idx ="108000";
         }
-        else if(p_category_l==2)
+        else if(p_cate_idx=="200000")
         {
-            if(param.get("p_category_s").equals("츄르")) p_category_idx ="7";
-            else if(param.get("p_category_s").equals("스낵")) p_category_idx ="8";
-            else if(param.get("p_category_s").equals("캣잎")) p_category_idx ="9";
-            else if(param.get("p_category_s").equals("스틱")) p_category_idx ="10";
-            else if(param.get("p_category_s").equals("프리미엄")) p_category_idx ="11";
-            else if(param.get("p_category_s").equals("통살")) p_category_idx ="12";
+            if(param.get("p_cate_name").equals("")) p_cate_idx ="100000";
+            else if(param.get("p_cate_name").equals("스낵")) p_cate_idx ="101000";
+            else if(param.get("p_cate_name").equals("스낵")) p_cate_idx ="102000";
+            else if(param.get("p_cate_name").equals("뼈/육포")) p_cate_idx ="103000";
+            else if(param.get("p_cate_name").equals("스틱")) p_cate_idx ="104000";
+            else if(param.get("p_cate_name").equals("프리미엄")) p_cate_idx ="105000";
+            else if(param.get("p_cate_name").equals("통살")) p_cate_idx ="106000";
+            else if(param.get("p_cate_name").equals("프리미엄")) p_cate_idx ="107000";
+            else if(param.get("p_cate_name").equals("통살")) p_cate_idx ="108000";
         }
 
 
-        param.put("p_category_idx", p_category_idx);
+        param.put("p_cate_idx", p_cate_idx);
 
         int addresult = productService.productadd(param);
-
+        System.out.println(productDTO);
         if(addresult > 0){
             return "/product/productAdd";
         }else{
@@ -92,8 +101,11 @@ public class ProductController {
         }
     }
     @GetMapping("productList.do")
-    public String productList(){
+    public String productList(Model model, HttpServletRequest request){
+        List<ProductDTO> productDTO = productService.getProductList();
 
+        model.addAttribute("p_list",productDTO);
+        System.out.println(productDTO);
         return "/product/productList";
     }
     @GetMapping("productDetail.do")

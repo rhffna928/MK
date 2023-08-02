@@ -12,6 +12,7 @@ import java.util.Date;
 public class ProductDTO {
 
     private int p_idx;
+    private int m_idx;
     private String p_name;
     private int P_price;
     private int p_sale;
@@ -22,5 +23,6 @@ public class ProductDTO {
     private Date p_date;
     private int p_cnt;
     private String p_del;
-    private String p_category_idx;
+    private String p_cate_idx;
+    private String p_cate_name;
 }

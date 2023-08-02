@@ -9,7 +9,8 @@ import lombok.ToString;
 @ToString
 public class P_CategoryDTO {
 
-    private String p_category_idx;
-    private String p_category_l;
-    private String p_category_s;
+    private String p_cate_idx;
+    private String p_cate_name;
+    private String p_cate_parent;
+    private int p_cate_tier;
 }

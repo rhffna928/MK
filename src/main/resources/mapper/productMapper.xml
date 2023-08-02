@@ -7,5 +7,7 @@
         insert into product(p_name, p_price, p_sale, p_img1, p_cnt, p_category_idx)
         values(${p_name}, ${p_price}, ${p_sale}, ${p_img1}, ${p_cnt}, ${p_category_idx})
     </insert>
-
+    <select id="p_list" resultType="product">
+        select * from product
+    </select>
 </mapper>

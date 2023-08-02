@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<html>
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 
 <script>
@@ -26,20 +27,16 @@
 	}
 </script>
 <script>
-
-	var jsonData = JSON.parse('${p_category_idx}');
-	console.log(jsonData);
-
     function categoryChange(e){
         var clothes = ["------","상의","하의","신발","모자","원피스","양말","속옷","아우터"];
         var accessory = ["------","마스크","목걸이","팔찌","반지","벨트","스카프/반다나","장갑","기타 액세서리"];
         var living = ["------","상의","하의","신발","모자"];
-        var target = document.getElementById("p_category_s");
+        var target = document.getElementById("p_cate_name");
 
 
-        if(e.value == 1) var d = clothes;
-        else if(e.value == 2) var d = accessory;
-        else if(e.value == 3) var d = living;
+        if(e.value == 100000) var d = clothes;
+        else if(e.value == 200000) var d = accessory;
+        else if(e.value == 300000) var d = living;
 
         alert(e.value);
 
@@ -70,13 +67,13 @@
                     <tr>
                         <th>분류</th>
                         <td>
-                            <select class="form-select" name = "p_category_l" id="p_category_l" onchange="categoryChange(this)" style="margin-bottom:10px;">
+                            <select class="form-select" name = "p_cate_idx" id="p_cate_idx" onchange="categoryChange(this)" style="margin-bottom:10px;">
                             	<option value="yet" >------</option>
-                            	<option value="100">의류</option>
-                                <option value="200">악세사리</option>
-                                <option value="300">리빙</option>
+                            	<option value="100000">의류</option>
+                                <option value="200000">악세사리</option>
+                                <option value="300000">리빙</option>
                             </select>
-                            <select class="form-select" name ="p_category_s" id="p_category_s" >
+                            <select class="form-select" name ="p_cate_name" id="p_cate_name" >
                             	<option value="yet" >------</option>
                             </select>
     				    </td>
