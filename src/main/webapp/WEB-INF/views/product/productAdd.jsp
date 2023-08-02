@@ -4,6 +4,13 @@
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 
 <script>
+    function check(){
+        var fm = document.frm;
+        if(fm.p_name == null){
+            alert("상품명을 작성해주세요");
+        }
+
+    }
     //파일 추가
     function addFile() {
    		var str = "<div class='form-group' id='file-list'><div class='file-group'><input type='file' name='file' id='file' class='file' accept='.jpg, .png'><a href='#this' name='file-delete'>삭제</a></div></div>";
@@ -55,7 +62,7 @@
 
         <!-- Section-->
         <section class="py-5">
-            <form name="frm" method="post" enctype="multipart/form-data" action="${pageContext.request.contextPath}/productAddProcess.do" >
+            <form name="frm" method="post" enctype="multipart/form-data">
                 <table border="1"  style="margin-left:0;">
                     <tr>
                         <th>상품명</th>
@@ -117,7 +124,7 @@
                         </td>
                     </tr>
                 </table>
-                <input type="submit" value="상품등록" >
+                <input type="button" class="btn btn-light" value="등록하기" onclick="check();">
             </form>
 
         </section>
