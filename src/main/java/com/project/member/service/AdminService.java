@@ -10,7 +10,7 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class AdminService {
-    private AdminRepository adminRepository;
+    private final AdminRepository adminRepository;
 
     public List<MemberDTO> memberlist() {
         return adminRepository.memberList();

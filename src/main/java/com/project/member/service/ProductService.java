@@ -6,15 +6,15 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Map;
 
 @Service
 @RequiredArgsConstructor
 public class ProductService {
 
     private final ProductRepository productRepository;
-    public int productadd(Map<String, String> param) {
-        return productRepository.productadd(param);
+    public int productadd(ProductDTO productDTO) {
+        System.out.println("상품등록"+productDTO);
+        return productRepository.productadd(productDTO);
     }
 
     public List<ProductDTO> getProductList() {

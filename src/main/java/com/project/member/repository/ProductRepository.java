@@ -12,11 +12,14 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class ProductRepository {
     private final SqlSessionTemplate sql;
-    public int productadd(Map<String, String> param) {
-        return sql.insert("Product.add",param);
+    public int productadd(ProductDTO productDTO) {
+        return sql.insert("Product.add",productDTO);
     }
 
     public List<ProductDTO> getProductList() {
         return sql.selectList("Product.p_list");
+    }
+    public List<ProductDTO> getProductModi() {
+        return sql.selectOne("Product.productModi");
     }
 }

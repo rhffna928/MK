@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace = "Cart">
+    <insert id="cartAdd" parameterType="cart">
+        insert into cart(m_idx, p_idx, c_cnt)
+        values(#{m_idx},#{p_idx},#{c_cnt})
+    </insert>
+    <select id="cartList" resultType="list" parameterType="cart">
+        select a.c_idx, a.c_cnt, a.m_idx, b.p_idx, b.p_name, b.p_price, a.c_cnt*b.p_price as c_price
+        from cart a join product b on a.p_idx = b.p_idx
+        where m_idx= #{m_idx}
+    </select>
+    <update id="cartPlus" parameterType="cart">
+        update cart
+        <![CDATA[
+        set c_cnt = c_cnt + #{c_cnt}
+        ]]>
+         where m_idx = #{m_idx} and p_idx = #{p_idx};
+    </update>
+    <select id="check" resultType="int">
+        select count(*) from cart where m_idx=#{m_idx} and p_idx = #{p_idx}
+    </select>
+
+</mapper>

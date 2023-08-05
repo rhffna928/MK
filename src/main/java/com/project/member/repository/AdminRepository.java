@@ -13,7 +13,6 @@ import java.util.List;
 public class AdminRepository {
 
     private final SqlSessionTemplate sql;
-    public static final String MAPPER = "com.project.member.admin";
 
     public List<MemberDTO> memberList() {
         return sql.selectList("Admin.m_list");

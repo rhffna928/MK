@@ -9,12 +9,12 @@
     </select>
     <!--회원등급업-->
     <update id="updateInfo" parameterType="map">
-        update members set m_grade = ${m_grade} where m_idx = ${m_idx}
+        update members set m_grade = #{m_grade} where m_idx = #{m_idx}
     </update>
     <!--회원삭제-->
     <delete id="deleteInfo" parameterType="list">
         delete from members where m_idx in
-        <foreach collection="list" item="m_idx" open="(" separator="," close=")">${m_idx}</foreach>
+        <foreach collection="list" item="m_idx" open="(" separator="," close=")">#{m_idx}</foreach>
     </delete>
 
 </mapper>

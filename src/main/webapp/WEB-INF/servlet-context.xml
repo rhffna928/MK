@@ -11,7 +11,7 @@
 
     <!-- Handles HTTP GET requests for /resources/** by efficiently serving up static resources in the ${webappRoot}/resources directory -->
     <beans:bean class="java.lang.String" id="uploadPath">
-        <beans:constructor-arg value="C:\Users\rhffn\eclipse-workspace\MJ\src\main\webapp\resources\images"></beans:constructor-arg>
+        <beans:constructor-arg value="C:\Users\rhffn\eclipse-workspace\MK\src\main\webapp\resources\images"></beans:constructor-arg>
     </beans:bean>
     <resources mapping="/resources/**" location="/resources/"/>
 

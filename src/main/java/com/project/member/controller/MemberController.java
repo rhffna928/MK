@@ -28,6 +28,8 @@ public class MemberController {
     public MemberController(MemberService memberService) {
         this.memberService = memberService;
     }
+
+
     @GetMapping("/save.do")
     public String saveForm(){
         return "/member/save";
@@ -39,11 +41,9 @@ public class MemberController {
         String pwd = memberDTO.getM_pw();
         EncryptPwd encryptPwd = new EncryptPwd(pwd);
         pwd = encryptPwd.getPwd();
-
         memberDTO.setM_pw(pwd);
 
         int saveResult = memberService.save(memberDTO);
-
 
         if(saveResult > 0){
             return "member/login";
@@ -51,6 +51,7 @@ public class MemberController {
             return "/member/save";
         }
     }
+
     @GetMapping("/login.do")
     public String loginForm(){
         return "/member/login";
@@ -67,12 +68,12 @@ public class MemberController {
         MemberDTO loginResult = memberService.login(memberDTO);
         HttpSession session = request.getSession();
 
-
-
         String viewPage;
 
         if (loginResult != null) {
             session.setAttribute("member",loginResult);
+            session.setAttribute("m_idx",loginResult.getM_idx());
+            session.setAttribute("m_grade",loginResult.getM_grade());
 
             viewPage = "redirect:/index.do";
         } else {
