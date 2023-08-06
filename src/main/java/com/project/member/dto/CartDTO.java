@@ -14,4 +14,19 @@ public class CartDTO {
     private int p_idx;
     private int c_cnt;
     private String c_delyn;
+
+    private int p_sale;
+    private int p_price;
+
+    private int Point;
+    private int salePrice;
+    private int totalPrice;
+    private int totalPoint;
+
+    public void setInitPrice() {
+        this.salePrice = (int)(Math.floor(this.p_price *(100 - this.p_sale)/100));
+        this.totalPrice = this.p_price * this.c_cnt;
+        this.Point = (int)(Math.floor(this.totalPrice * 0.05));
+        this.totalPoint = this.Point * this.c_cnt;
+    }
 }

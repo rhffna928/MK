@@ -6,13 +6,32 @@
 <html>
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script>
-$(function(){
-        $("#cartAdd").click(function(){
-            var p_idx = $(this).attr("name");
-            alert(p_idx);
-
-        });
-});
+$("#cartAdd").on("click",function(e){
+        var p_idx = $(this).attr("name").val();
+		$.ajax({
+			url : "${pageContext.request.contextPath}/cartAdd.do", //호출할 url
+			type : 'post', // 호출할 방법(get,post)
+			data : "p_idx": p_idx, //서버로 보낼 데이터
+			success : function(result){ //요청 성공시 수행될 메서드, 파라미터는 서버가 반환하는 값
+				cartAlert(result);
+				alert("성공");
+			},
+		      error: function() {
+		          alert("에러 발생");
+		      }
+		})
+	});
+	function cartAlert(result){
+		if(result == '0'){
+			alert("장바구니에 추가를 하지 못하였습니다.");
+		} else if(result == '1'){
+			alert("장바구니에 추가되었습니다.");
+		} else if(result == '2'){
+			alert("장바구니에 이미 추가되어져 있습니다.");
+		} else if(result == '5'){
+			alert("로그인이 필요합니다.");
+		}
+	}
 </script>
 <head>
 <title>판매리스트</title>
@@ -69,7 +88,9 @@ $(function(){
                                     <!-- Product actions-->
                                     <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
                                 <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="${pageContext.request.contextPath}/cartAdd.do?p_idx=${p_list.p_idx}&c_cnt=1">장바구니 추가</a>
+                                <form class="cart_add" method="get" actions="${pageContext.request.contextPath}/cartAdd.do?}&c_cnt=1">
                                 <button class="btn btn-outline-dark mt-auto" name="${p_list.p_idx}" id="cartAdd" >장바구니 추가</button></div>
+                                </form>
                             </div>
                         </div>
                     </div>

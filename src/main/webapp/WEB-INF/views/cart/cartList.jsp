@@ -29,7 +29,25 @@
             <div class="container px-4 px-lg-5 mt-5">
                 <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
                     <div>
-
+                        <table>
+                            <colgroup>
+                                <col width="5%">
+                            </colgroup>
+                            <thead>
+                                <tr>
+                                    <th>상품명</th>
+                                </tr>
+                            </thead>
+                            <c:forEach items="${cartlist}" var="c_list">
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        ${c_list.p_name} ${c_list.c_}
+                                    </td>
+                                </tr>
+                            </tbody>
+                            </c:forEach>
+                        </table>
                     </div>
                 </div>
             </div>

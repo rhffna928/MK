@@ -5,7 +5,6 @@ import com.project.member.repository.CartRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.sql.SQLOutput;
 import java.util.List;
 
 @Service
@@ -13,8 +12,9 @@ import java.util.List;
 public class CartService {
     private final CartRepository cartRepository;
 
-    public List<CartDTO> getCartList(CartDTO cartDTO){
-        return cartRepository.getcartList(cartDTO);
+    public List<CartDTO> getCartList(int m_idx){
+        System.out.println("cartlist :"+ m_idx);
+        return cartRepository.getcartList(m_idx);
     }
 
     public int check(CartDTO cartDTO) {

@@ -13,8 +13,8 @@ public class CartRepository {
 
     private final SqlSessionTemplate sql;
 
-    public List<CartDTO> getcartList(CartDTO cartDTO){
-        return sql.selectList("Cart.cartList",cartDTO);
+    public List<CartDTO> getcartList(int m_idx){
+        return sql.selectList("Cart.cartList",m_idx);
     }
 
     public int check(CartDTO cartDTO) {
