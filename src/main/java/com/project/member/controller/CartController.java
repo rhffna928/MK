@@ -7,9 +7,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.sql.Array;
@@ -41,11 +38,15 @@ public class CartController {
         return "redirect:/cartList.do";
     }
     @GetMapping("/cartList.do")
-    public String cartList(Model model, HttpSession session){
-        int m_idx = (int)session.getAttribute("m_idx");
+    public String cartList(CartDTO cartDTO, Model model, HttpServletRequest request){
 
-        List<CartDTO> carlist = new ArrayList<>();
-        model.addAttribute("cartlist", cartService.getCartList(carlist));
+        HttpSession Session = request.getSession();
+        int m_idx = (int) Session.getAttribute("m_idx");
+        cartDTO.setM_idx(m_idx);
+
+        List<CartDTO> carlist = cartService.getCartList(cartDTO);
+
+        model.addAttribute("cartlist", carlist);
 
         return "/cart/cartList";
     }

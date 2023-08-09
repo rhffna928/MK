@@ -37,4 +37,8 @@ public class AjaxService {
     public int deleteInfo(List<Integer> m_idx_list) {
         return adminRepository.deleteInfo(m_idx_list);
     }
+
+    public int idCheck(String m_id) {
+        return memberRepository.idCheck(m_id);
+    }
 }

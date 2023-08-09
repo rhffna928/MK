@@ -2097,10 +2097,13 @@ progress {
 }
 
 .form-control-lg {
+
+  width: 100%;
   min-height: calc(1.5em + 1rem + 2px);
   padding: 0.5rem 1rem;
   font-size: 1.25rem;
   border-radius: 0.5rem;
+  margin: 1rem;
 }
 .form-control-lg::file-selector-button {
   padding: 0.5rem 1rem;

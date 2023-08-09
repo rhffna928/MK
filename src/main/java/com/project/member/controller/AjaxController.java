@@ -21,8 +21,18 @@ public class AjaxController {
         this.ajaxService = ajaxService;
     }
 
+
+    @PostMapping("/idCheck.do")
+    public String idCheck(@RequestParam("m_id") String m_id){
+        String result = "N";
+        int flag = ajaxService.idCheck(m_id);
+        if(flag == 1) result = "Y";
+        System.out.println("아이디는"+result);
+        return result;
+    }
+
     @PostMapping("/searchIdProcess.do")
-    public String searchIdProcess(@RequestParam("m_email") String m_email,Model model){
+    public String searchIdProcess(@RequestParam("m_email") String m_email){
 
         String result = ajaxService.searchid(m_email);
         System.out.println("아이디는"+result);

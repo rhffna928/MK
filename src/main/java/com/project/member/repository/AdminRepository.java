@@ -27,4 +27,6 @@ public class AdminRepository {
     public int deleteInfo(List<Integer> m_idx_list) {
         return sql.delete("Admin.deleteInfo",m_idx_list);
     }
+
+
 }

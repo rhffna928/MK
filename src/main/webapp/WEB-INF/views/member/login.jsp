@@ -27,12 +27,27 @@ if(m_pw == ""){
 <%@ include file="/resources/include/header.jsp" %>
     <!-- Section-->
     <section class="py-5">
-        <form name="form1" method="post">
-            <input type="text" name="m_id" placeholder="아이디" id="m_id">
-            <input type="text" name="m_pw" placeholder="비밀번호" id="m_pw">
-            <span class="point successPwChk"></span>
-            <a href="${pageContext.request.contextPath}/searchId.do">아이디찾기/</a>
-            <button type="button" id="btnLogin">로그인 </button>
-        </form>
+        <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+            <form name="form1" method="post">
+                <div>
+                    <input class="text-50 text-center" type="text" name="m_id" placeholder="아이디" id="m_id">
+                </div>
+                <div>
+                    <input class="form-control text-center" type="text" name="m_pw" placeholder="비밀번호" id="m_pw">
+                </div>
+                <div>
+                    <span class="point successPwChk"></span>
+                </div>
+                <div>
+                    <a href="${pageContext.request.contextPath}/searchId.do">아이디찾기/</a>
+                </div>
+                <div>
+                    <a href="${pageContext.request.contextPath}/searchPw.do">비밀번호찾기/</a>
+                </div>
+                <div>
+                    <button type="button" class="btn btn-dark" id="btnLogin">로그인 </button>
+                </div>
+            </form>
+        </div>
     </section>
 <%@ include file="/resources/include/footer.jsp" %>

@@ -12,9 +12,9 @@ import java.util.List;
 public class CartService {
     private final CartRepository cartRepository;
 
-    public List<CartDTO> getCartList(int m_idx){
-        System.out.println("cartlist :"+ m_idx);
-        return cartRepository.getcartList(m_idx);
+    public List<CartDTO> getCartList(CartDTO cartDTO){
+        System.out.println("cartlist :"+ cartDTO);
+        return cartRepository.getcartList(cartDTO);
     }
 
     public int check(CartDTO cartDTO) {

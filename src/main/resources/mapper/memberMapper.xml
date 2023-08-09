@@ -8,6 +8,9 @@
         insert into members(m_email, m_id, m_pw, m_tel, m_jumin, m_gender)
         values (#{m_email}, #{m_id}, #{m_pw}, #{m_tel}, #{m_jumin}, #{m_gender})
     </insert>
+    <select id="idCheck" parameterType="string" resultType="int">
+        select count(*) from members where m_id = #{m_id}
+    </select>
     <!--로그인-->
     <select id="login" parameterType="member" resultType="member">
         select * from members where m_id = #{m_id} and m_pw = #{m_pw}

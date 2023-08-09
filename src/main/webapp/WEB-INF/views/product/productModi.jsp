@@ -6,55 +6,10 @@
 <script>
 function check(){
 
-		var len=document.getElementsByClassName('file').length;
-		//alert(len);
-		var fileCheck=0;
-		for(var i=0 ; i<len;i++){
-			//alert(i);
-			var f=document.getElementsByClassName("file")[i].value;
-			//alert(f);
-			if(!f ){
-			    fileCheck++;
-			}
-        }
-        var fm = document.frm;
 
-        if(fm.p_name.value == ""){
-            alert("상품명을 작성해 주세요");
-            fm.p_name.focus();
-            return;
-        }else if(fm.p_cate_idx.value =="yet"){
-            alert("상품 카테고리를 선택해 주세요");
-            fm.p_cate_idx.focus();
-            return;
-        }else if(fm.p_cate_name.value =="yet"){
-            alert("상품 카테고리를 선택해 주세요");
-            fm.p_cate_name.focus();
-            return;
-        }else if(fm.p_cate_idx.value =="yet"){
-            alert("상품 카테고리를 선택해 주세요");
-            fm.p_cate_name.focus();
-            return;
-        }else if(fileCheck != 0){
-            alert("상품 이미지를 선택해 주세요");
-            fm.p_img1.focus();
-            return;
-        }else if(fm.p_price.value ==""){
-            alert("상품 가격을 정해 주세요");
-            fm.p_price.focus();
-            return;
-        }else if(fm.p_sale.value == ""){
-            alert("상품 할인률을 정해주세요 [ ex)0 ]")
-            fm.p_sale.focus();
-            return;
-        }else if(fm.p_cnt.value == ""){
-            alert("상품 수량을 입력해 주세요")
-            fm.p_cnt.focus();
-            return;
-        }
         alert("상품등록 완료");
         fm.enctype = "multipart/form-data";
-        fm.action = "${pageContext.request.contextPath}/productAddProcess.do";
+        fm.action = "${pageContext.request.contextPath}/productProcess.do";
         fm.method = "post";
         fm.submit();
 
@@ -111,9 +66,8 @@ function check(){
 
         <!-- Section-->
         <section class="py-5">
-            <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
             <form name="frm">
-                <table border="1" class="table table-light" style="margin-left:0;">
+                <table border="1"  style="margin-left:0;">
                     <tr>
                         <th>상품명</th>
                         <td>
@@ -174,7 +128,6 @@ function check(){
                 </table>
                 <input type="button" class="btn btn-light" value="등록하기" onclick="check();">
             </form>
-            </div>
 
         </section>
 

@@ -86,5 +86,21 @@ public class ProductController {
         return "/product/productView";
     }
 
+    @GetMapping("productModi.do")
+    public String product(Model model, HttpServletRequest request){
+        List<ProductDTO> productDTO = productService.getProductList();
+
+        model.addAttribute("p_list",productDTO);
+        System.out.println(productDTO);
+        return "/product/productModi";
+    }
+
+
+    @GetMapping("productModiProcess.do")
+    public String productModiProcess(){
+        return "/product/productModi";
+    }
+
+
 }
 

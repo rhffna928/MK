@@ -70,7 +70,7 @@
             </tr>
             </thread>
             <tbody>
-                <c:forEach items="${memberDTO}" var="member">
+                <c:forEach items="${m_list}" var="member">
                     <tr>
                         <td>${member.m_idx}</td>
                         <td>${member.m_id}</td>

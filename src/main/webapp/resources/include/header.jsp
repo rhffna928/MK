@@ -41,59 +41,75 @@
                     </ul>
                     <c:choose>
                         <c:when test="${member.m_grade == 1}"><!-- 로그인이 이루어진 경우 -->
-                            <ul class="user-login">
-                                <li>
-                                    <p><span>${member.m_id}</span>님 환영합니다!</p>
-                                </li>
-                                <li>
-                                    <a href="${pageContext.request.contextPath}/logout.do">로그아웃</a>
-                                </li>
-                                <li>
-                                    <a href="${pageContext.request.contextPath}/Notice">고객센터</a>
+                            <ul class="navbar-nav mb-2 mb-lg-0 ms-lg-4">
+                                <li class="dropdown">
+                                    <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">${member.m_id}님</a>
+                                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                        <li><a class="dropdown-item" href="${pageContext.request.contextPath}/productList.do">개인정보</a></li>
+                                        <li><a class="dropdown-item" href="${pageContext.request.contextPath}/logout.do">로그아웃</a></li>
+                                        <li><a class="dropdown-item" href="${pageContext.request.contextPath}/Notice">고객센터</a></li>
+                                    </ul>
                                 </li>
                             </ul>
                         </c:when>
                         <c:when test="${member.m_grade == 2}"><!-- 관리자 -->
-                            <ul class="user-login">
-                                <li>
-                                    <p><span>${member.m_id}</span>님은 관리자</p>
-                                </li>
-                                <li>
-                                    <a href="${pageContext.request.contextPath}/logout.do">로그아웃</a>
-                                </li>
-                                <li>
-                                    <a href="${pageContext.request.contextPath}/memberList.do">회원관리</a>
-                                </li>
-                                <li>
-                                    <a href="${pageContext.request.contextPath}/productAdd.do">상품등록</a>
-                                </li>
-                            </ul>
+                                    <p class="me-1"><span>${member.m_id}</span>님은 관리자</p>
+                            <a href="${pageContext.request.contextPath}/logout.do">
+                                <button class="btn btn-outline-dark">
+                                    로그아웃
+                                </button>
+                            </a>
+                            <a href="${pageContext.request.contextPath}/memberList.do">
+                                <button class="btn btn-outline-dark">
+                                    회원관리
+                                </button>
+                            </a>
+                            <a href="${pageContext.request.contextPath}/productAdd.do">
+                                <button class="btn btn-outline-dark">
+                                    상품등록
+                                </button>
+                            </a>
+                            <a href="${pageContext.request.contextPath}/productModi.do">
+                                <button class="btn btn-outline-dark">
+                                    상품관리
+                                </button>
+                            </a>
                         </c:when>
                         <c:otherwise>
-                            <ul class="user-login">  <!--로그인 X 상태  -->
-                                <li>
-                                    <a href="${pageContext.request.contextPath}/login.do">로그인</a>
-                                </li>
-                                <li>
-                                    <a href="${pageContext.request.contextPath}/save.do">회원가입</a>
-                                </li>
-                                <li >
-                                    <a href="${pageContext.request.contextPath}/Notice">고객센터</a>
-                                </li>
-                            </ul>
+                            <a href="${pageContext.request.contextPath}/login.do">
+                                <button class="btn btn-outline-dark">
+                                    로그인
+                                </button>
+                            </a>
+                            <a href="${pageContext.request.contextPath}/save.do">
+                                <button class="btn btn-outline-dark">
+                                    회원가입
+                                </button>
+                            </a>
+                            <a style="text-decoration: none;"class="me-1" href="${pageContext.request.contextPath}/Notice">
+                                <button class="btn btn-outline-dark">
+                                    고객센터
+                                </button>
+                            </a>
                         </c:otherwise>
                     </c:choose>
-                    <form class="d-flex">
                         <button class="btn btn-outline-dark" type="submit">
                             <i class="bi-cart-fill me-1"></i>
                             Cart
                             <span class="badge bg-dark text-white ms-1 rounded-pill">0</span>
                         </button>
-                    </form>
                 </div>
             </div>
         </nav>
-
+ <!-- Header-->
+        <header class="bg-dark py-5">
+            <div class="container px-4 px-lg-5 my-5">
+                <div class="text-center text-white">
+                    <h1 class="display-4 fw-bolder">Shop in style</h1>
+                    <p class="lead fw-normal text-white-50 mb-0">With this shop hompeage template</p>
+                </div>
+            </div>
+        </header>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 <!-- Core theme JS-->
 <script src="js/scripts.js"></script>

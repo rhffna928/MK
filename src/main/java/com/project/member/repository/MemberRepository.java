@@ -11,7 +11,10 @@ import java.util.HashMap;
 public class MemberRepository {
 
     private final SqlSessionTemplate sql;
-    
+
+    public int idCheck(String m_id) {
+        return sql.selectOne("Member.idCheck",m_id);
+    }
     //회원가입
     public int save(MemberDTO memberDTO) {
         System.out.println("memberDTO = " + memberDTO );
@@ -30,4 +33,5 @@ public class MemberRepository {
     public String searchpw(HashMap<String, String> map) {
         return sql.selectOne("Member.searchPw",map);
     }
+
 }

@@ -1,42 +1,32 @@
 package com.project.member.controller;
 
-import com.mysql.cj.protocol.x.Notice;
 import com.project.member.dto.MemberDTO;
-import com.project.member.repository.MemberRepository;
 import com.project.member.service.EncryptPwd;
 import com.project.member.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
-
-import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletContext;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.security.NoSuchAlgorithmException;
-import java.util.HashMap;
 
 @Controller
 @RequiredArgsConstructor
 public class MemberController {
 
-    private MemberService memberService;
-
-    @Autowired //자동 의존 주입: 생성자 방식
-    public MemberController(MemberService memberService) {
-        this.memberService = memberService;
-    }
-
+    private final MemberService memberService;
 
     @GetMapping("/save.do")
     public String saveForm(){
         return "/member/save";
     }
 
-    @PostMapping("/save.do")
-    public String save(@ModelAttribute MemberDTO memberDTO) throws NoSuchAlgorithmException {
+    @PostMapping("/saveProcess.do")
+    public String saveProcess(@ModelAttribute MemberDTO memberDTO) throws NoSuchAlgorithmException {
 
         String pwd = memberDTO.getM_pw();
         EncryptPwd encryptPwd = new EncryptPwd(pwd);

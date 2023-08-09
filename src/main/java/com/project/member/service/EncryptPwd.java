@@ -6,8 +6,7 @@ import java.security.NoSuchAlgorithmException;
 public class EncryptPwd {
     private String pwd;
 
-    public EncryptPwd(String pwd) throws NoSuchAlgorithmException
-    {
+    public EncryptPwd(String pwd) throws NoSuchAlgorithmException {
         MessageDigest md = MessageDigest.getInstance("SHA-256");
 
         md.update(pwd.getBytes());

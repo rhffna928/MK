@@ -21,8 +21,8 @@ public class AdminController {
     public String memberListForm(Model model, HttpServletRequest request){
         List<MemberDTO> memberDTO = adminService.memberlist();
 
-        model.addAttribute("m_list"+memberDTO);
+        model.addAttribute("m_list",memberDTO);
 
-        return "/member/memberList";
+        return "/admin/memberList";
     }
 }
