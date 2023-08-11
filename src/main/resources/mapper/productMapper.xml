@@ -9,7 +9,16 @@
         values(#{p_name}, #{p_price}, #{p_sale}, #{p_img1}, #{p_img2}, #{p_cnt}, #{p_cate_idx}, #{p_cate_name})
 
     </insert>
+    <select id="checkPn"  parameterType="string" resultType="int">
+        select count(*) from product where p_name = #{p_name}
+    </select>
     <select id="p_list" resultType="product">
         select * from product
     </select>
+    <select id="p_view" resultType="product">
+        select * from product where p_idx = #{p_idx}
+    </select>
+    <update id="p_Modi" parameterType="product">
+        update product set p_name=#{p_name} p_price=#{p_price} p_sale=#{p_sale} p_img1=#{p_img1} p_cnt=#{p_cnt} p_cate_idx=#{p_cate_idx} p_cate_name=#{p_cate_name} where p_idx = #{p_idx};
+    </update>
 </mapper>

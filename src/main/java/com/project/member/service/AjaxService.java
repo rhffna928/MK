@@ -2,6 +2,7 @@ package com.project.member.service;
 
 import com.project.member.repository.AdminRepository;
 import com.project.member.repository.MemberRepository;
+import com.project.member.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import com.project.member.dto.MemberDTO;
@@ -15,6 +16,7 @@ public class AjaxService {
 
     private final AdminRepository adminRepository;
     private final MemberRepository memberRepository;
+    private final ProductRepository productRepository;
     private MemberDTO memberDTO;
 
 
@@ -40,5 +42,9 @@ public class AjaxService {
 
     public int idCheck(String m_id) {
         return memberRepository.idCheck(m_id);
+    }
+
+    public int getcheckPn(String p_name) {
+        return productRepository.getcheckPn(p_name);
     }
 }

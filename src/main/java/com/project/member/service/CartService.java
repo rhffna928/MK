@@ -31,4 +31,8 @@ public class CartService {
         System.out.println("plus :"+ cartDTO);
         return cartRepository.cartPlus(cartDTO);
     }
+
+    public CartDTO getCartCnt(int m_idx) {
+        return cartRepository.getCartCnt(m_idx);
+    }
 }

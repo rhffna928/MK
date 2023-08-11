@@ -51,53 +51,45 @@
                                     </ul>
                                 </li>
                             </ul>
+                            <a class="btn btn-outline-dark" href="${pageContext.request.contextPath}/cartList.do">
+                                <i class="bi-cart-fill me-1"></i>
+                                Cart
+                                <span class="badge bg-dark text-white ms-1 rounded-pill">${cartCnt.cnt}</span>
+                            </a>
                         </c:when>
                         <c:when test="${member.m_grade == 2}"><!-- 관리자 -->
-                                    <p class="me-1"><span>${member.m_id}</span>님은 관리자</p>
-                            <a href="${pageContext.request.contextPath}/logout.do">
-                                <button class="btn btn-outline-dark">
-                                    로그아웃
-                                </button>
-                            </a>
-                            <a href="${pageContext.request.contextPath}/memberList.do">
-                                <button class="btn btn-outline-dark">
-                                    회원관리
-                                </button>
-                            </a>
-                            <a href="${pageContext.request.contextPath}/productAdd.do">
-                                <button class="btn btn-outline-dark">
-                                    상품등록
-                                </button>
-                            </a>
-                            <a href="${pageContext.request.contextPath}/productModi.do">
-                                <button class="btn btn-outline-dark">
-                                    상품관리
-                                </button>
-                            </a>
+                            <ul class="navbar-nav mb-2 mb-lg-0 ms-lg-4">
+                                <li class="dropdown">
+                                    <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">${member.m_id}님은 관리자</a>
+                                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                        <li><a class="dropdown-item" href="${pageContext.request.contextPath}/logout.do">로그아웃</a></li>
+                                        <li><a class="dropdown-item" href="${pageContext.request.contextPath}/memberList.do">회원관리</a></li>
+                                        <li><a class="dropdown-item" href="${pageContext.request.contextPath}/productAdd.do">상품등록</a></li>
+                                        <li><a class="dropdown-item" href="${pageContext.request.contextPath}/productDetail.do">상품관리</a></li>
+                                        <li><a class="dropdown-item" href="${pageContext.request.contextPath}/Notice">고객센터</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+
                         </c:when>
                         <c:otherwise>
-                            <a href="${pageContext.request.contextPath}/login.do">
-                                <button class="btn btn-outline-dark">
-                                    로그인
-                                </button>
-                            </a>
-                            <a href="${pageContext.request.contextPath}/save.do">
-                                <button class="btn btn-outline-dark">
-                                    회원가입
-                                </button>
-                            </a>
-                            <a style="text-decoration: none;"class="me-1" href="${pageContext.request.contextPath}/Notice">
-                                <button class="btn btn-outline-dark">
-                                    고객센터
-                                </button>
+                            <ul class="navbar-nav mb-2 mb-lg-0 ms-lg-4">
+                                <li class="dropdown">
+                                    <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">로그인을 해주세요</a>
+                                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                        <li><a class="dropdown-item" href="${pageContext.request.contextPath}/login.do">로그인</a></li>
+                                        <li><a class="dropdown-item" href="${pageContext.request.contextPath}/save.do">회원가입</a></li>
+                                        <li><a class="dropdown-item" href="${pageContext.request.contextPath}/Notice">고객센터</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                            <a class="btn btn-outline-dark" href="${pageContext.request.contextPath}/cartList.do">
+                                <i class="bi-cart-fill me-1"></i>
+                                Cart
+                                <span class="badge bg-dark text-white ms-1 rounded-pill">0</span>
                             </a>
                         </c:otherwise>
                     </c:choose>
-                        <button class="btn btn-outline-dark" type="submit">
-                            <i class="bi-cart-fill me-1"></i>
-                            Cart
-                            <span class="badge bg-dark text-white ms-1 rounded-pill">0</span>
-                        </button>
                 </div>
             </div>
         </nav>

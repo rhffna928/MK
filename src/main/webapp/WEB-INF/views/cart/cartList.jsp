@@ -15,35 +15,44 @@
 <body>
 <%@ include file="/resources/include/header.jsp" %>
 
-       <!-- Header-->
-        <header class="bg-dark py-5">
-            <div class="container px-4 px-lg-5 my-5">
-                <div class="text-center text-white">
-                    <h1 class="display-4 fw-bolder">Shop in style</h1>
-                    <p class="lead fw-normal text-white-50 mb-0">With this shop hompeage template</p>
-                </div>
-            </div>
-        </header>
     <!-- Section-->
 <section class="py-5">
             <div class="container px-4 px-lg-5 mt-5">
-                <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+                <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-2 justify-content-center">
                     <div>
                         <table>
                             <colgroup>
-                                <col width="5%">
+                                <col width="40%">
+                                <col width="30%">
+                                <col width="30%">
                             </colgroup>
                             <thead>
                                 <tr>
                                     <th>상품명</th>
+                                    <th>상품갯수</th>
+                                    <th>상품가격</th>
                                 </tr>
                             </thead>
                             <c:forEach items="${cartlist}" var="c_list">
+                             <colgroup>
+                                 <col width="40%">
+                                 <col width="30%">
+                                 <col width="30%">
+                             </colgroup>
                             <tbody>
                                 <tr>
                                     <td>
-                                        ${c_list.p_name} ${c_list.c_}
+                                        ${c_list.p_name}
+                                        <img class="card-img-bottom" src="\resources\images${c_list.p_img1}" alt="..." />
                                     </td>
+                                    <td>
+                                        ${c_list.c_cnt}
+                                    </td>
+                                    <td>
+
+                                        ${c_list.p_price}
+                                    </td>
+
                                 </tr>
                             </tbody>
                             </c:forEach>

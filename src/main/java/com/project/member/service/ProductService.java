@@ -20,4 +20,12 @@ public class ProductService {
     public List<ProductDTO> getProductList() {
         return productRepository.getProductList();
     }
+
+    public ProductDTO getProductView(int p_idx) {
+        return productRepository.getProductView(p_idx);
+    }
+
+    public int getProductModi(int p_idx) {
+        return productRepository.getProductModi(p_idx);
+    }
 }

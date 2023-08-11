@@ -6,7 +6,6 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
-import java.util.Map;
 
 @Repository
 @RequiredArgsConstructor
@@ -19,7 +18,14 @@ public class ProductRepository {
     public List<ProductDTO> getProductList() {
         return sql.selectList("Product.p_list");
     }
-    public List<ProductDTO> getProductModi() {
-        return sql.selectOne("Product.productModi");
+    public ProductDTO getProductView(int p_idx) {
+        return sql.selectOne("Product.p_view",p_idx);
+    }
+    public int getProductModi(int p_idx) {
+        return sql.update("Product.p_Modi",p_idx);
+    }
+
+    public int getcheckPn(String p_name) {
+        return sql.selectOne("Product.checkPn",p_name);
     }
 }

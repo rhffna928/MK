@@ -78,5 +78,13 @@ public class AjaxController {
         if(flag == 1) result = "Y";
         return result;
     }
+    //상품 이름 체크
+    @PostMapping("/checkPn.do")
+    public String checkPn(@RequestParam("p_name") String p_name){
+        String result = "N";
+        int flag = ajaxService.getcheckPn(p_name);
+        if(flag == 1) result = "Y";
+        return result;
+    }
 
 }

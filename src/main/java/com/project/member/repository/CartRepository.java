@@ -28,4 +28,8 @@ public class CartRepository {
     public int cartPlus(CartDTO cartDTO) {
         return sql.update("Cart.cartPlus",cartDTO);
     }
+
+    public CartDTO getCartCnt(int m_idx) {
+        return sql.selectOne("Cart.cartCnt",m_idx);
+    }
 }

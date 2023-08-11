@@ -47,7 +47,7 @@ public class CartController {
         List<CartDTO> carlist = cartService.getCartList(cartDTO);
 
         model.addAttribute("cartlist", carlist);
-
+        System.out.println(carlist);
         return "/cart/cartList";
     }
 }

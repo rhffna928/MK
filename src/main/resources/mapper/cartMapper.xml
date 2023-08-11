@@ -8,7 +8,7 @@
         values(#{m_idx},#{p_idx},#{c_cnt})
     </insert>
     <select id="cartList" parameterType="cart" resultType="cart" >
-        select a.c_idx, a.c_cnt, a.m_idx, b.p_idx, b.p_name, b.p_price, a.c_cnt*b.p_price as c_price
+        select a.c_idx, a.c_cnt, a.m_idx, b.p_idx, b.p_name, b.p_img1, b.p_price, a.c_cnt*b.p_price as c_price
         from cart a join product b on a.p_idx = b.p_idx
         where m_idx= #{m_idx}
         order by a.c_idx desc
@@ -22,6 +22,9 @@
     </update>
     <select id="check" resultType="int">
         select count(*) from cart where m_idx=#{m_idx} and p_idx = #{p_idx}
+    </select>
+    <select id="cartCnt" parameterType="cart" resultType="cart">
+        select count(c_cnt) as cnt from cart where m_idx= #{m_idx}
     </select>
 
 </mapper>

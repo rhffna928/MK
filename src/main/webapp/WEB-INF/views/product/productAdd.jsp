@@ -4,7 +4,7 @@
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 
 <script>
-function check(){
+    function check(){
 
 		var len=document.getElementsByClassName('file').length;
 		//alert(len);
@@ -58,8 +58,25 @@ function check(){
         fm.method = "post";
         fm.submit();
 
-
     }
+    function checkPn(){
+        var p_name = $("#p_name").val();
+        $.ajax({
+            type : "post",
+            url : "${pageContext.request.contextPath}/checkPn.do",
+            data : {"p_name":p_name
+            },
+            success : function(data){
+            if(data == "N"){
+                alert("사용 가능한 아이디입니다.");
+            }else{
+                alert("이미 사용중인 아이디입니다.");
+                $("#p_name").focus();
+            }
+            }, error: function(error){alert(error);}
+        });
+    }
+
     //파일 추가
     function addFile() {
    		var str = "<div class='form-group' id='file-list'><div class='file-group'><input type='file' name='file' id='file' class='file' accept='.jpg, .png'><a href='#this' name='file-delete'>삭제</a></div></div>";
@@ -67,8 +84,8 @@ function check(){
 		$("a[name='file-delete']").on("click",function(e){
 			e.preventDefault();
 			deleteFile($(this));
-			});
-		}
+		});
+    }
 	//파일 추가 끝
 
 	//파일 삭제
@@ -81,8 +98,16 @@ function check(){
 	function deleteFile(obj){
 		obj.parent().remove();
 	}
+	//상품 할인가
+	function calPrice2(){
+        var price = $("#p_price").val();
+        var sale = $("#p_sale").val();
+        var disprice = price *(100-sale)/100;
+        $("#p_disprice").val(disprice);
+	}
 </script>
 <script>
+    //상품 카테고리
     function categoryChange(e){
         var clothes = ["------","상의","하의","신발","모자","원피스","양말","속옷","아우터"];
         var accessory = ["------","마스크","목걸이","팔찌","반지","벨트","스카프/반다나","장갑","기타 액세서리"];
@@ -105,6 +130,8 @@ function check(){
         	target.append(opt);
         }
     }
+
+
 </script>
 
     <%@ include file="/resources/include/header.jsp" %>
@@ -117,8 +144,9 @@ function check(){
                     <tr>
                         <th>상품명</th>
                         <td>
-                            <input type="text" name="p_name" placeholder="상품명">
-    				        <input type="button" id="checkP_n" value="중복검사"/>
+                            <input type="text" name="p_name" id="p_name" placeholder="상품명">
+    				        <input type="button" id="checkPN" value="중복검사"  onClick="checkPn()" />
+    				        <span id="chkPN"></span>
     				    </td>
     				</tr>
                     <tr>

@@ -9,7 +9,7 @@ function check(){
 
         alert("상품등록 완료");
         fm.enctype = "multipart/form-data";
-        fm.action = "${pageContext.request.contextPath}/productProcess.do";
+        fm.action = "${pageContext.request.contextPath}/productModiProcess.do";
         fm.method = "post";
         fm.submit();
 
@@ -66,12 +66,13 @@ function check(){
 
         <!-- Section-->
         <section class="py-5">
+            <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
             <form name="frm">
-                <table border="1"  style="margin-left:0;">
-                    <tr>
-                        <th>상품명</th>
+                <table border="1" class="table table-light" >
+                    <tr >
+                        <th class="table table-light">상품명</th>
                         <td>
-                            <input type="text" name="p_name" placeholder="상품명">
+                            <input type="text" name="p_name" value="${p_Modi.p_name}">
     				        <input type="button" id="checkP_n" value="중복검사"/>
     				    </td>
     				</tr>
@@ -80,12 +81,13 @@ function check(){
                         <td>
                             <select class="form-select" name ="p_cate_idx" id="p_cate_idx" onchange="categoryChange(this)" style="margin-bottom:10px;">
                             	<option value="yet" >------</option>
-                            	<option value="100000">의류</option>
-                                <option value="200000">악세사리</option>
-                                <option value="300000">리빙</option>
+                            	<option value="100000" <c:if test="${p_Modi.p_cate_idx == 100000}">selected</c:if>>의류</option>
+                                <option value="200000" <c:if test="${p_Modi.p_cate_idx == 200000}">selected</c:if>>악세사리</option>
+                                <option value="300000" <c:if test="${p_Modi.p_cate_idx == 300000}">selected</c:if>>리빙</option>
                             </select>
                             <select class="form-select" name ="p_cate_name" id="p_cate_name" >
                             	<option value="yet" >------</option>
+                            	<option value="300000" selected>${p_Modi.p_cate_name}</option>
                             </select>
     				    </td>
     				</tr>
@@ -95,7 +97,8 @@ function check(){
 						    <div class="form-group" id="file-list">
                                 <a href="#this" onclick ="addFile()">파일추가</a>
                                 <div class="file-group">
-                                    <input type="file" name="file"  id='file' class='file' accept=".jpg, .png">
+                                    ${p_Modi.p_img1}
+                                    <input type="file" name="file"  id='file' class='file' accept=".jpg, .png" value="${p_Modi.p_img1}">
                                 </div>
                             </div>
                         </td>
@@ -103,13 +106,13 @@ function check(){
                     <tr>
                         <th>상품가격</th>
                         <td>
-                            <input type="text" name="p_price" placeholder="상품가격" id="p_price">
+                            <input type="text" name="p_price" value="${p_Modi.p_price}" id="p_price">
                         </td>
                     </tr>
                     <tr>
                         <th>상품할인률</th>
                         <td>
-                            <input type="text" name="p_sale" placeholder="상품할인률" id="p_sale">
+                            <input type="text" name="p_sale" value="${p_Modi.p_sale}" id="p_sale">
                         </td>
                     </tr>
                     <tr>
@@ -122,13 +125,13 @@ function check(){
                     <tr>
                         <th>상품수량</th>
                         <td>
-                            <input type="text" name="p_cnt" placeholder="상품수량" id="p_cnt">
+                            <input type="text" name="p_cnt" value="${p_Modi.p_cnt}" id="p_cnt">
                         </td>
                     </tr>
                 </table>
                 <input type="button" class="btn btn-light" value="등록하기" onclick="check();">
             </form>
-
+            </div>
         </section>
 
     <%@ include file="/resources/include/footer.jsp" %>

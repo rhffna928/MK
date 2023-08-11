@@ -82,23 +82,47 @@ public class ProductController {
     }
 
     @GetMapping("productView.do")
-    public String productView(){
+    public String productView(@RequestParam("p_idx") int p_idx,Model model,
+                              HttpServletRequest request){
+
+        ProductDTO productView = productService.getProductView(p_idx);
+        model.addAttribute("p_View",productView);
         return "/product/productView";
     }
 
     @GetMapping("productModi.do")
-    public String product(Model model, HttpServletRequest request){
-        List<ProductDTO> productDTO = productService.getProductList();
+    public String product(@RequestParam("p_idx") int p_idx,Model model,
+                          HttpServletRequest request){
 
-        model.addAttribute("p_list",productDTO);
-        System.out.println(productDTO);
+        ProductDTO productView = productService.getProductView(p_idx);
+        model.addAttribute("p_Modi",productView);
+
         return "/product/productModi";
     }
 
 
     @GetMapping("productModiProcess.do")
-    public String productModiProcess(){
+    public String productModiProcess(@RequestParam ProductDTO productDTO,@RequestParam("p_idx") int p_idx,Model model,
+                                     HttpServletRequest request,MultipartHttpServletRequest mRequest,
+                                     MultipartFile file) throws Exception {
+
+        String imgUploadPath = uploadPath + File.separator + "imgUpload";
+        String ymdPath = UploadFileUtils.calPath(imgUploadPath);
+        String fileName;
+        if(file != null){
+            fileName = UploadFileUtils.fileUpload(imgUploadPath, file.getOriginalFilename(),file.getBytes(), ymdPath);
+        }else {
+            fileName = uploadPath + File.separator + "images" + File.separator + "non.png";
+        }
+        productDTO.setP_img1(File.separator+"imgUpload"+ ymdPath + File.separator + fileName);
+        productDTO.setP_img2(File.separator +"imgUpload"+ymdPath+ File.separator + "s"+File.separator + "s_" + fileName);
+
+
+        int result = productService.getProductModi(p_idx);
+        if (result == 1)return "redirect:/productView.do";
+
         return "/product/productModi";
+
     }
 
 
