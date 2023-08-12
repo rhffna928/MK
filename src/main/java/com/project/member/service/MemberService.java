@@ -19,8 +19,10 @@ public class MemberService {
     
     //로그인
     public MemberDTO login(MemberDTO memberDTO) {
-
         return memberRepository.login(memberDTO);
+    }
 
+    public MemberDTO getMemberInfo(int m_idx) {
+        return memberRepository.getMemberInfo(m_idx);
     }
 }

@@ -10,6 +10,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.security.NoSuchAlgorithmException;
@@ -91,6 +93,14 @@ public class MemberController {
         return "/member/searchPw";
     }
 
+
+    @GetMapping("/memberModi.do")
+    public String memberModi(@RequestParam("m_idx") int m_idx, Model model){
+
+        MemberDTO memberDTO = memberService.getMemberInfo(m_idx);
+        model.addAttribute("m_modi",memberDTO);
+        return "/member/memberModi";
+    }
 
 
 

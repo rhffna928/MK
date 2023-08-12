@@ -34,4 +34,7 @@ public class MemberRepository {
         return sql.selectOne("Member.searchPw",map);
     }
 
+    public MemberDTO getMemberInfo(int m_idx) {
+        return sql.selectOne("Member.memberInfo",m_idx);
+    }
 }

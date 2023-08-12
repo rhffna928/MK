@@ -12,10 +12,13 @@
     <select id="checkPn"  parameterType="string" resultType="int">
         select count(*) from product where p_name = #{p_name}
     </select>
-    <select id="p_list" resultType="product">
+    <select id="p_List" resultType="product">
         select * from product
     </select>
-    <select id="p_view" resultType="product">
+    <select id="p_New_list" resultType="product">
+        select * from product where p_date between date_add(now(), interval -1 week) and now()
+    </select>
+    <select id="p_View" resultType="product">
         select * from product where p_idx = #{p_idx}
     </select>
     <update id="p_Modi" parameterType="product">

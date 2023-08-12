@@ -16,11 +16,16 @@ public class ProductRepository {
     }
 
     public List<ProductDTO> getProductList() {
-        return sql.selectList("Product.p_list");
+        return sql.selectList("Product.p_List");
+    }
+
+    public List<ProductDTO> getProductNewList() {
+        return sql.selectList("Product.p_List");
     }
     public ProductDTO getProductView(int p_idx) {
-        return sql.selectOne("Product.p_view",p_idx);
+        return sql.selectOne("Product.p_View",p_idx);
     }
+
     public int getProductModi(int p_idx) {
         return sql.update("Product.p_Modi",p_idx);
     }

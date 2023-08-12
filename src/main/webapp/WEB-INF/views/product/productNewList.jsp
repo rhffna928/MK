@@ -45,14 +45,14 @@ $("#cartAdd").on("click",function(e){
             <div class="container px-4 px-lg-5 mt-5">
                 <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
                     <!--상품카드-->
-                    <c:forEach items="${p_list}" var="p_list">
+                    <c:forEach items="${p_Newlist}" var="p_list">
                     <input type="hidden" name="p_idx" value="${p_list.p_idx}">
                     <div class="col mb-5">
                         <div class="card h-100">
                             <c:if test="${p_list.p_sale != 0}">
                                 <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">Sale</div>
                             </c:if>
-                            <a href="${pageContext.request.contextPath}/productModi.do?p_idx=${p_list.p_idx}">
+                            <a href="${pageContext.request.contextPath}/productView.do?p_idx=${p_list.p_idx}">
                                 <!-- Product image-->
                                 <img class="card-img-top" src="\resources\images${p_list.p_img1}" alt="..." />
                             </a>

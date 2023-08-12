@@ -89,6 +89,14 @@ public class ProductController {
         model.addAttribute("p_View",productView);
         return "/product/productView";
     }
+    @GetMapping("productNewList.do")
+    public String productNewList(Model model, HttpServletRequest request){
+        List<ProductDTO> productDTO = productService.getProductNewList();
+
+        model.addAttribute("p_Newlist",productDTO);
+        System.out.println(productDTO);
+        return "/product/productNewList";
+    }
 
     @GetMapping("productModi.do")
     public String product(@RequestParam("p_idx") int p_idx,Model model,

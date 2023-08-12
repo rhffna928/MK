@@ -22,22 +22,25 @@
                     <div>
                         <table>
                             <colgroup>
-                                <col width="40%">
                                 <col width="30%">
                                 <col width="30%">
+                                <col width="20%">
+                                <col width="20%">
                             </colgroup>
                             <thead>
                                 <tr>
                                     <th>상품명</th>
-                                    <th>상품갯수</th>
+                                    <th>수량</th>
                                     <th>상품가격</th>
+                                    <th>총가격</th>
                                 </tr>
                             </thead>
                             <c:forEach items="${cartlist}" var="c_list">
                              <colgroup>
-                                 <col width="40%">
-                                 <col width="30%">
-                                 <col width="30%">
+                                <col width="30%">
+                                <col width="30%">
+                                <col width="20%">
+                                <col width="20%">
                              </colgroup>
                             <tbody>
                                 <tr>
@@ -46,16 +49,27 @@
                                         <img class="card-img-bottom" src="\resources\images${c_list.p_img1}" alt="..." />
                                     </td>
                                     <td>
-                                        ${c_list.c_cnt}
+                                        <input class="btn btn-outline-dark" name="${c_list.c_idx}" type="button" value="+" id="plus">
+                                        <a class="btn" type="text" id="c_cnt" name="c_cnt">${c_list.c_cnt}</a>
+                                        <input class="btn btn-outline-dark" name="${c_list.c_idx}" type="button" value="-" id="minus">
                                     </td>
                                     <td>
-
-                                        ${c_list.p_price}
+                                        <c:if test="${p_list.p_sale != 0}">
+                                            <span class="text-muted text-decoration-line-through"><fmt:formatNumber value="${c_list.p_price}" pattern="#,###" />원</span>
+                                        </c:if>
+                                        <span><fmt:formatNumber value="${c_list.p_price*(100-c_list.p_sale)/100}" pattern="#,###" />원</span>
                                     </td>
-
+                                    <td>
+                                        <span><fmt:formatNumber value="${c_list.p_price*(100-c_list.p_sale)/100 *c_list.c_cnt}" pattern="#,###" />원</span>
+                                    </td>
                                 </tr>
                             </tbody>
                             </c:forEach>
+                            <tr>
+                                <td colspan="4">
+                                    <button id="order">결제하기</button>
+                                </tb>
+                            </tr>
                         </table>
                     </div>
                 </div>

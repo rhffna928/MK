@@ -35,7 +35,7 @@
                                 <li><a class="dropdown-item" href="${pageContext.request.contextPath}/productList.do">All Products</a></li>
                                 <li><hr class="dropdown-divider" /></li>
                                 <li><a class="dropdown-item" href="#!">Popular Items</a></li>
-                                <li><a class="dropdown-item" href="#!">New Arrivals</a></li>
+                                <li><a class="dropdown-item" href="${pageContext.request.contextPath}/productNewList.do">신상품</a></li>
                             </ul>
                         </li>
                     </ul>
@@ -45,7 +45,7 @@
                                 <li class="dropdown">
                                     <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">${member.m_id}님</a>
                                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                        <li><a class="dropdown-item" href="${pageContext.request.contextPath}/productList.do">개인정보</a></li>
+                                        <li><a class="dropdown-item" href="${pageContext.request.contextPath}/memberModi.do?m_idx=${member.m_idx}">개인정보</a></li>
                                         <li><a class="dropdown-item" href="${pageContext.request.contextPath}/logout.do">로그아웃</a></li>
                                         <li><a class="dropdown-item" href="${pageContext.request.contextPath}/Notice">고객센터</a></li>
                                     </ul>
