@@ -10,6 +10,7 @@
     <script src="http://code.jquery.com/jquery-latest.min.js"></script>
     <script>
      $(document).ready(function(){
+
          	$("#id_find").click(function(){
          		let m_email = $("#m_email").val();
          		alert(m_email);

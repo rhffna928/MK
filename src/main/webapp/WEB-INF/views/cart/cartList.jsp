@@ -6,7 +6,38 @@
 <html>
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script>
+$(document).ready(function(){
 
+	$(".plus").on("click", function(){
+
+		let cart_idx = $(this).attr("name");
+		let cnt_plus = "#plus"+cart_idx;
+		let plus = $(cnt_plus).val();
+
+		let cnt_input = "#input"+cart_idx;
+		let cnt = $("#c_cnt_input").val();
+		let cntV = $(cnt_input).val();
+
+				$(cnt_input).val(++cntV);
+	});
+
+    $(".minus").on("click", function(){
+
+		let cart_idx = $(this).attr("name");
+		let cnt_minus = "#minus"+cart_idx;
+		let minus = $(cnt_minus).val();
+
+		let cnt_input = "#input"+cart_idx;
+		let cntV = $(cnt_input).val();
+
+		let cnt = $("#c_cnt_input").val();
+
+			if(cntV > 1){
+				$(cnt_input).val(--cntV);
+			}
+	});
+
+});
 </script>
 <head>
 <title>판매리스트</title>
@@ -36,6 +67,7 @@
                                 </tr>
                             </thead>
                             <c:forEach items="${cartlist}" var="c_list">
+                                <input type="hidden" id="c_cnt_input" value="${c_list.c_cnt}">
                              <colgroup>
                                 <col width="30%">
                                 <col width="30%">
@@ -49,9 +81,9 @@
                                         <img class="card-img-bottom" src="\resources\images${c_list.p_img1}" alt="..." />
                                     </td>
                                     <td>
-                                        <input class="btn btn-outline-dark" name="${c_list.c_idx}" type="button" value="+" id="plus">
-                                        <a class="btn" type="text" id="c_cnt" name="c_cnt">${c_list.c_cnt}</a>
-                                        <input class="btn btn-outline-dark" name="${c_list.c_idx}" type="button" value="-" id="minus">
+                                        <input class="plus" name="${c_list.c_idx}" type="button" value="+" id="plus${c_list.c_idx}">
+                                        <input  class="input" type="text" id="input${c_list.c_idx}" name="c_cnt" value="${c_list.c_cnt}"></a>
+                                        <input class="minus" name="${c_list.c_idx}" type="button" value="-" id="minus${c_list.c_idx}">
                                     </td>
                                     <td>
                                         <c:if test="${p_list.p_sale != 0}">
