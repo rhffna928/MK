@@ -14,7 +14,7 @@ function checkSave(){
         alert("아이디를 입력해주세요");
         fm.m_id.focus();
         return;
-    }else if(fm.m_pw.value == fm.m_pw2.value){
+    }else if(fm.m_pw.value != fm.m_pw2.value){
         alert("비밀번호가 일치하지 않습니다.");
         fm.m_pw.focus();
         return;
@@ -35,7 +35,6 @@ function checkSave(){
         fm.m_email.focus();
         return;
     }
-    return;
     fm.method = "post";
     fm.action = "${pageContext.request.contextPath}/saveProcess.do";
     fm.submit();

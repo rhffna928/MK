@@ -596,7 +596,8 @@ progress {
 .blockquote-footer::before {
   content: "— ";
 }
-
+.img {
+}
 .img-fluid {
   max-width: 100%;
   height: auto;
@@ -2225,7 +2226,8 @@ textarea.form-control-lg {
   margin-left: 0;
 }
 
-.form-check-input {
+.form-check-input
+{
   width: 1em;
   height: 1em;
   margin-top: 0.25em;
@@ -3847,6 +3849,16 @@ textarea.form-control-lg {
   display: inline-block;
   width: 1.5em;
   height: 1.5em;
+  vertical-align: middle;
+  background-image: var(--bs-navbar-toggler-icon-bg);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 100%;
+}
+.navbar-toggler-icon2 {
+  display: inline-block;
+  width: 5em;
+  height: 5em;
   vertical-align: middle;
   background-image: var(--bs-navbar-toggler-icon-bg);
   background-repeat: no-repeat;

@@ -8,7 +8,7 @@
         values(#{m_idx},#{p_idx},#{c_cnt})
     </insert>
     <select id="cartList" parameterType="cart" resultType="cart" >
-        select a.c_idx, a.c_cnt, a.m_idx, b.p_idx, b.p_name, b.p_img1,b.p_sale, b.p_price, a.c_cnt*b.p_price as c_price
+        select a.c_idx, a.c_cnt, a.m_idx, b.p_idx, b.p_name, b.p_img1,b.p_sale, b.p_price, a.c_cnt*(b.p_price*(100-b.p_sale)/100) as c_price
         from cart a join product b on a.p_idx = b.p_idx
         where m_idx= #{m_idx}
         order by a.c_idx desc

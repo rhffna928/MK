@@ -33,7 +33,7 @@ if(m_pw == ""){
                     <input class="text-50 text-center" type="text" name="m_id" placeholder="아이디" id="m_id">
                 </div>
                 <div>
-                    <input class="form-control text-center" type="text" name="m_pw" placeholder="비밀번호" id="m_pw">
+                    <input class="form-control text-center" type="password" name="m_pw" placeholder="비밀번호" id="m_pw">
                 </div>
                 <div>
                     <span class="point successPwChk"></span>
