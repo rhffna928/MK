@@ -26,5 +26,10 @@
     <select id="cartCnt" parameterType="cart" resultType="cart">
         select count(c_cnt) as cnt from cart where m_idx= #{m_idx}
     </select>
-
+    <update id="update" parameterType="cart">
+        update cart set c_cnt = #{c_cnt} where m_idx = #{m_idx} and c_idx = #{c_idx}
+    </update>
+    <delete id="delete" parameterType="cart">
+        delete from cart where c_idx = #{c_idx} and m_idx = #{m_idx}
+    </delete>
 </mapper>

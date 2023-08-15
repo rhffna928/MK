@@ -1,6 +1,8 @@
 package com.project.member.service;
 
+import com.project.member.dto.CartDTO;
 import com.project.member.repository.AdminRepository;
+import com.project.member.repository.CartRepository;
 import com.project.member.repository.MemberRepository;
 import com.project.member.repository.ProductRepository;
 import lombok.RequiredArgsConstructor;
@@ -17,7 +19,7 @@ public class AjaxService {
     private final AdminRepository adminRepository;
     private final MemberRepository memberRepository;
     private final ProductRepository productRepository;
-    private MemberDTO memberDTO;
+    private final CartRepository cartRepository;
 
 
     public String searchid(String mEmail) {
@@ -46,5 +48,9 @@ public class AjaxService {
 
     public int getcheckPn(String p_name) {
         return productRepository.getcheckPn(p_name);
+    }
+
+    public int getCartUpdate(CartDTO cartDTO) {
+        return cartRepository.getCartUpdate(cartDTO);
     }
 }

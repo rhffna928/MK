@@ -1,5 +1,6 @@
 package com.project.member.controller;
 
+import com.project.member.dto.CartDTO;
 import com.project.member.service.AjaxService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
@@ -84,6 +85,17 @@ public class AjaxController {
         String result = "N";
         int flag = ajaxService.getcheckPn(p_name);
         if(flag == 1) result = "Y";
+        return result;
+    }
+
+    //장바구니 버튼 업데이트 이름 체크
+    @PostMapping("/cartUpdate.do")
+    public String cartUpdate(@ModelAttribute CartDTO cartDTO){
+        String result = "N";
+        int flag = ajaxService.getCartUpdate(cartDTO);
+        if(flag == 1) result = "Y";
+        System.out.println(cartDTO);
+        System.out.println(flag);
         return result;
     }
 

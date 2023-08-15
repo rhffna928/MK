@@ -32,4 +32,8 @@ public class CartRepository {
     public CartDTO getCartCnt(int m_idx) {
         return sql.selectOne("Cart.cartCnt",m_idx);
     }
+
+    public int getCartUpdate(CartDTO cartDTO) {
+        return sql.update("Cart.update",cartDTO);
+    }
 }

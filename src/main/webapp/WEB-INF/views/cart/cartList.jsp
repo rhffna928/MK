@@ -8,6 +8,45 @@
 <script>
 $(document).ready(function(){
 
+setTotalInfo();
+
+$(".c_checkbox").on("change", function(){
+
+    setTotalInfo($(".cart_info_div"));
+});
+$(".all_check_input").on("change", function(){
+    if($(".all_check_input").is(":checked") == true){
+    		$(".c_checkbox").prop("checked", true);
+    	} else if($(".all_check_input").is(":checked") == false){
+    	$(".c_checkbox").prop("checked", false);
+        }
+    	setTotalInfo($(".cart_info_div"));
+});
+$(".c_checkbox").on("click", function(){
+
+		let totalCheckbox=0;
+		let totalChecked =0;
+		$("input[type='checkbox']:checked").each(function(){
+			totalChecked++;
+		});
+		$("input[type='checkbox']").each(function(){
+			totalCheckbox++;
+		});
+
+		if($('.all_check_input').is(':checked') == true && totalCheckbox != totalChecked){
+			$(".all_check_input").prop("checked",false);
+		}
+		else if($('.all_check_input').is(':checked') == false && (totalChecked+1)==totalCheckbox)
+		{
+
+			$(".all_check_input").prop("checked",true);
+
+		}
+
+		//전체 상품가격 업데이트
+		setTotalInfo(".cart_info_div");
+	});
+
 	$(".plus").on("click", function(){
 
 		let cart_idx = $(this).attr("name");
@@ -36,54 +75,116 @@ $(document).ready(function(){
 				$(cnt_input).val(--cntV);
 			}
 	});
-    $(".plus").on
+	$(".plus").on("click", function(){
+
+    	let c_idx = $(this).attr("name");
+    	//let c_cnt_input = $('input[id="c_cnt_input"]');
+    	let m_idx_input = $('input[id="m_idx_input"]');
+    	let p_idx_input = $('input[id="p_idx_input"]');
+    	//let c_cnt = $(c_cnt_input).val();
+    	let c_cnt = $(this).parent().find('input[name="c_cnt"]').val();
+    	let m_idx = $(m_idx_input).val();
+    	let p_idx = $(p_idx_input).val();
+    	$.ajax({
+            type : "post",
+            url : "${pageContext.request.contextPath}/cartUpdate.do",
+            data : {"c_idx":c_idx,
+                    "c_cnt":c_cnt,
+                    "m_idx":m_idx,
+                    "p_idx":p_idx
+            },
+            success : function(data){
+                if(data=="Y"){
+                    setTotalInfo();
+                }else{
+                    console.log("plus x");
+                }
+            }
+        });
+    });
+    $(".minus").on("click", function(){
+
+    	let c_idx = $(this).attr("name");
+    	//let c_cnt_input = $('input[id="c_cnt_input"]');
+    	let m_idx_input = $('input[id="m_idx_input"]');
+    	let p_idx_input = $('input[id="p_idx_input"]');
+    	//let c_cnt = $(c_cnt_input).val();
+    	let c_cnt = $(this).parent().find('input[name="c_cnt"]').val();
+    	let m_idx = $(m_idx_input).val();
+    	let p_idx = $(p_idx_input).val();
+    	let p_price = $(this).val();
+    	let c_price = p_price*c_cnt;
+
+     	$.ajax({
+            type : "post",
+            url : "${pageContext.request.contextPath}/cartUpdate.do",
+            data : {"c_idx":c_idx,
+                    "c_cnt":c_cnt,
+                    "m_idx":m_idx,
+                    "p_idx":p_idx
+            },
+            success : function(data){
+                if(data=="Y"){
+
+                    setTotalInfo();
+                }else{
+                    console.log("plus x");
+                }
+            }
+        });
+    });
+
+    function setTotalInfo(){
+        var totalPrice = 0;				// 총 가격
+        var totalCount = 0;				// 총 갯수
+        var totalKind = 0;				// 총 종류
+        var salePrice = 0;				// 총 마일리지
+        var deliveryPrice = 0;			// 배송비
+        var finalTotalPrice = 0; 		// 최종 가격(총 가격 + 배송비)
+        $(".cart_info_div").each(function(index, element){
+
+            if($(element).find(".c_checkbox").is(":checked") === true){	//체크여부
+
+        		// 총 가격
+        		totalPrice += parseInt($(element).find("#c_total_input").val());
+        		// 총 갯수
+        		totalCount += parseInt($(element).find("#c_cnt_input").val());
+        		// 총 종류
+        		totalKind += 1;
+        		// 총 세일
+        		salePrice += parseInt($(element).find("#c_sale_input").val());
+            }
+        });
+        	if(totalPrice >= 30000){
+            	deliveryPrice = 0;
+            } else if(totalPrice == 0){
+            	deliveryPrice = 0;
+            } else {
+            	deliveryPrice = 3000;
+            }
+            finalTotalPrice = totalPrice + deliveryPrice - salePrice;
+
+            $(".totalPrice_span").text(totalPrice.toLocaleString());
+            // 총 갯수
+            $(".totalCount_span").text(totalCount);
+            // 총 종류
+            $(".totalKind_span").text(totalKind);
+            // 총 마일리지
+            $(".salePrice_span").text(salePrice.toLocaleString());
+            // 배송비
+            $(".delivery_price").text(deliveryPrice);
+            // 최종 가격(총 가격 + 배송비)
+            $(".finalTotalPrice_span").text(finalTotalPrice.toLocaleString());
+    }
+
 });
 
 
 </script>
 <script>
 $(document).ready(function(){
-    var totalPrice = 0;				// 총 가격
-    var totalCount = 0;				// 총 갯수
-    var totalKind = 0;				// 총 종류
-    var salePrice = 0;				// 총 마일리지
-    var deliveryPrice = 0;			// 배송비
-    var finalTotalPrice = 0; 		// 최종 가격(총 가격 + 배송비)
-    //if("input[type='checkbox']:checked").each(function(){
-    //    if($(this).val(''))
-    //});
-    $(".cart_info_div").each(function(index, element){
 
-    		// 총 가격
-    		totalPrice += parseInt($(element).find("#c_total_input").val());
-    		// 총 갯수
-    		totalCount += parseInt($(element).find("#c_cnt_input").val());
-    		// 총 종류
-    		totalKind += 1;
-    		// 총 세일
-    		salePrice += parseInt($(element).find("#c_sale_input").val());
 
-    	});
-    	if(totalPrice >= 30000){
-        	deliveryPrice = 0;
-        } else if(totalPrice == 0){
-        	deliveryPrice = 0;
-        } else {
-        	deliveryPrice = 3000;
-        }
-        finalTotalPrice = totalPrice + deliveryPrice - salePrice;
-
-        $(".totalPrice_span").text(totalPrice.toLocaleString());
-        // 총 갯수
-        $(".totalCount_span").text(totalCount);
-        // 총 종류
-        $(".totalKind_span").text(totalKind);
-        // 총 마일리지
-        $(".salePrice_span").text(salePrice.toLocaleString());
-        // 배송비
-        $(".delivery_price").text(deliveryPrice);
-        // 최종 가격(총 가격 + 배송비)
-        $(".finalTotalPrice_span").text(finalTotalPrice.toLocaleString());
 });
 </script>
 <head>
@@ -100,6 +201,9 @@ $(document).ready(function(){
             <div class="container px-4 px-lg-5 mt-5">
                 <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-1 justify-content-center">
                     <div>
+                        <div>
+                            <input type="checkbox" class="form-check-input all_check_input" checked><span class="all_check_span">전체선택</span>
+                        </div>
                         <table border="1px">
                             <colgroup>
                                 <col width="2%">
@@ -120,13 +224,6 @@ $(document).ready(function(){
                                 </tr>
                             </thead>
                             <c:forEach items="${cartlist}" var="c_list">
-                                <div class="cart_info_div">
-                                <input type="hidden" id="c_cnt_input" value="${c_list.c_cnt}">
-                                <input type="hidden" id="c_p_sale_input" value="${c_list.p_sale}">
-                                <input type="hidden" id="c_p_price_input" value="${c_list.p_price}">
-                                <input type="hidden" id="c_total_input" value="${c_list.p_price*c_list.c_cnt}">
-                                <input type="hidden" id="c_sale_input" value="${(c_list.p_price*c_list.p_sale/100)*c_list.c_cnt}">
-                                </div>
                                 <colgroup>
                                     <col width="2%">
                                     <col width="30%">
@@ -138,7 +235,16 @@ $(document).ready(function(){
                             <tbody>
                                 <tr>
                                     <td class="text-center">
-                                        <input class="form-check-input" type="checkbox" id="chkbox${c_list.c_idx}" value="${c_list.c_idx}" onclick="" checked>
+                                        <div class="cart_info_div">
+                                        <input class="form-check-input c_checkbox" type="checkbox" id="chkbox${c_list.c_idx}" value="${c_list.c_idx}" onclick="" checked>
+                                        <input type="hidden" id="m_idx_input" value="${c_list.m_idx}">
+                                        <input type="hidden" id="p_idx_input" value="${c_list.p_idx}">
+                                        <input type="hidden" id="c_cnt_input" value="${c_list.c_cnt}">
+                                        <input type="hidden" id="c_p_sale_input" value="${c_list.p_sale}">
+                                        <input type="hidden" id="c_p_price_input${c_list.c_idx}" value="${c_list.p_price}">
+                                        <input type="hidden" id="c_total_input" value="${c_list.p_price*c_list.c_cnt}">
+                                        <input type="hidden" id="c_sale_input" value="${(c_list.p_price*c_list.p_sale/100)*c_list.c_cnt}">
+                                        </div>
                                     </td>
                                     <td class="text-center">
                                         <span class="text-center">
@@ -149,20 +255,20 @@ $(document).ready(function(){
                                         </span>
                                     </td>
                                     <td class="text-center">
-                                        <input class="btn btn-outline-dark plus" name="${c_list.c_idx}" type="button" value="+" id="plus${c_list.c_idx}">
+                                        <button class="btn btn-outline-dark plus" name="${c_list.c_idx}" type="button" value="${c_list.p_price}" id="plus${c_list.c_idx}">+</button>
                                         <input class="NumberCounter__input text-center" type="text" id="input${c_list.c_idx}" name="c_cnt" value="${c_list.c_cnt}" style="width:20%;border: 0 none;"></a>
-                                        <input class="btn btn-outline-dark minus" name="${c_list.c_idx}" type="button" value="-" id="minus${c_list.c_idx}">
+                                        <button class="btn btn-outline-dark minus" name="${c_list.c_idx}" type="button" value="${c_list.p_price}" id="minus${c_list.c_idx}">-</button>
                                     </td>
                                     <td class="text-center">
                                         <div>
                                         <c:if test="${p_list.p_sale != 0}">
-                                            <span class="text-muted text-decoration-line-through text-center"><fmt:formatNumber value="${c_list.p_price}" pattern="#,###" />원</span>
+                                            <span id="item_Price${c_list_c_idx}" name="${c_list.p_price}" class="text-muted text-decoration-line-through text-center"><fmt:formatNumber value="${c_list.p_price}" pattern="#,###" />원</span>
                                         </c:if>
                                         </div>
-                                        <span><fmt:formatNumber value="${c_list.p_price*(100-c_list.p_sale)/100}" pattern="#,###" />원</span>
+                                        <span id="item_Price${c_list_c_idx}" name="${c_list.p_price}"><fmt:formatNumber value="${c_list.p_price*(100-c_list.p_sale)/100}" pattern="#,###" />원</span>
                                     </td>
                                     <td class="text-center">
-                                        <span><fmt:formatNumber value="${c_list.p_price*(100-c_list.p_sale)/100 *c_list.c_cnt}" pattern="#,###" />원</span>
+                                        <span id="item_Price${c_list_c_idx}" name="${c_list.p_price}"><fmt:formatNumber value="${c_list.p_price*(100-c_list.p_sale)/100 *c_list.c_cnt}" pattern="#,###" />원</span>
                                     </td>
                                     <td class="text-center">
                                         <input class="btn btn-outline-dark" type="button" value="삭제" onclick="deleteCart()">
