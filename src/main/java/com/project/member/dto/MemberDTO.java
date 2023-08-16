@@ -15,6 +15,9 @@ public class MemberDTO {
     private String m_pw;
     private String m_email;
     private String m_tel;
+    private String m_addr1;
+    private String m_addr2;
+    private String m_addr3;
     private int m_grade;
     private String m_tier;
     private String m_gender;

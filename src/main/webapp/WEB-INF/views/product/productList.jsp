@@ -78,9 +78,10 @@ $("#cartAdd").on("click",function(e){
                                         </div>
                                     <!-- Product actions-->
                                     <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="${pageContext.request.contextPath}/cartAdd.do?p_idx=${p_list.p_idx}&c_cnt=1">장바구니 추가</a>
+                                <div class="text-center">
+                                <a class="btn btn-outline-dark mt-auto" href="${pageContext.request.contextPath}/cartAdd.do?p_idx=${p_list.p_idx}&c_cnt=1">장바구니 추가</a>
                                 <form class="cart_add" method="get" actions="${pageContext.request.contextPath}/cartAdd.do?}&c_cnt=1">
-                                <button class="btn btn-outline-dark mt-auto" name="${p_list.p_idx}" id="cartAdd" >장바구니 추가</button></div>
+                                </div>
                                 </form>
                             </div>
                         </div>

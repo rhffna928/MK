@@ -24,6 +24,6 @@
         select m_pw from members where m_id = #{m_id} and m_tel = #{m_tel}
     </select>
     <select id="memberInfo" resultType="member">
-        select m_email,m_id,m_tel,m_tier from members where m_idx = #{m_idx}
+        select * from members where m_idx = #{m_idx}
     </select>
 </mapper>

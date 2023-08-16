@@ -57,7 +57,8 @@ $(".c_checkbox").on("click", function(){
 		let cnt = $("#c_cnt_input").val();
 		let cntV = $(cnt_input).val();
 
-				$(cnt_input).val(++cntV);
+		$(cnt_input).val(++cntV);
+        setTotalInfo(cnt);
 	});
 
     $(".minus").on("click", function(){
@@ -74,6 +75,7 @@ $(".c_checkbox").on("click", function(){
 			if(cntV > 1){
 				$(cnt_input).val(--cntV);
 			}
+        setTotalInfo(cnt);
 	});
 	$(".plus").on("click", function(){
 
@@ -85,6 +87,7 @@ $(".c_checkbox").on("click", function(){
     	let c_cnt = $(this).parent().find('input[name="c_cnt"]').val();
     	let m_idx = $(m_idx_input).val();
     	let p_idx = $(p_idx_input).val();
+        str = "<input type='hidden' id='c_price_input'"+c_idx+" value="+c_price+">"+c_price.toLocaleString();
     	$.ajax({
             type : "post",
             url : "${pageContext.request.contextPath}/cartUpdate.do",
@@ -95,6 +98,8 @@ $(".c_checkbox").on("click", function(){
             },
             success : function(data){
                 if(data=="Y"){
+                    document.getElementById('item__Price'+c_idx).innerHTML = "";
+                    document.getElementById('item__Price'+c_idx).innerHTML = str;
                     setTotalInfo();
                 }else{
                     console.log("plus x");
@@ -113,8 +118,13 @@ $(".c_checkbox").on("click", function(){
     	let m_idx = $(m_idx_input).val();
     	let p_idx = $(p_idx_input).val();
     	let p_price = $(this).val();
-    	let c_price = p_price*c_cnt;
+    	let sale = "#sale_input"+c_idx;
+    	let sale_v = $(sale).val();
 
+        alert(sale_v);
+    	let c_price = (p_price*(100-sale_v)/100)*c_cnt;
+        str = "<input type='hidden' id='c_price_input'"+c_idx+" value="+c_price+">"+c_price.toLocaleString();
+        alert(str);
      	$.ajax({
             type : "post",
             url : "${pageContext.request.contextPath}/cartUpdate.do",
@@ -125,7 +135,35 @@ $(".c_checkbox").on("click", function(){
             },
             success : function(data){
                 if(data=="Y"){
+                    document.getElementById('item__Price'+c_idx).innerHTML = "";
+                    document.getElementById('item__Price'+c_idx).innerHTML = str;
+                    setTotalInfo();
+                }else{
+                    console.log("plus x");
+                }
+            }
+        });
+    });
+    $(".deleteCart").on("click", function(){
 
+       	let c_idx = $(this).attr("name");
+       	let m_idx_input = $('input[id="m_idx_input"]');
+       	let p_idx_input = $('input[id="p_idx_input"]');
+       	let c_cnt = $(this).parent().find('input[name="c_cnt"]').val();
+       	let m_idx = $(m_idx_input).val();
+       	let p_idx = $(p_idx_input).val();
+       	let item_list = "#item_list"+c_idx;
+       	$.ajax({
+            type : "post",
+            url : "${pageContext.request.contextPath}/cartDelete.do",
+            data : {"c_idx":c_idx,
+                    "c_cnt":c_cnt,
+                    "m_idx":m_idx,
+                    "p_idx":p_idx
+            },
+            success : function(data){
+                if(data=="Y"){
+                    $(item_list).remove();
                     setTotalInfo();
                 }else{
                     console.log("plus x");
@@ -232,7 +270,7 @@ $(document).ready(function(){
                                     <col width="20%">
                                     <col width="8%">
                                 </colgroup>
-                            <tbody>
+                            <tbody id="item_list${c_list.c_idx}" >
                                 <tr>
                                     <td class="text-center">
                                         <div class="cart_info_div">
@@ -240,7 +278,7 @@ $(document).ready(function(){
                                         <input type="hidden" id="m_idx_input" value="${c_list.m_idx}">
                                         <input type="hidden" id="p_idx_input" value="${c_list.p_idx}">
                                         <input type="hidden" id="c_cnt_input" value="${c_list.c_cnt}">
-                                        <input type="hidden" id="c_p_sale_input" value="${c_list.p_sale}">
+                                        <input type="hidden" id="sale_input${c_list.c_idx}" value="${c_list.p_sale}">
                                         <input type="hidden" id="c_p_price_input${c_list.c_idx}" value="${c_list.p_price}">
                                         <input type="hidden" id="c_total_input" value="${c_list.p_price*c_list.c_cnt}">
                                         <input type="hidden" id="c_sale_input" value="${(c_list.p_price*c_list.p_sale/100)*c_list.c_cnt}">
@@ -268,10 +306,12 @@ $(document).ready(function(){
                                         <span id="item_Price${c_list_c_idx}" name="${c_list.p_price}"><fmt:formatNumber value="${c_list.p_price*(100-c_list.p_sale)/100}" pattern="#,###" />원</span>
                                     </td>
                                     <td class="text-center">
-                                        <span id="item_Price${c_list_c_idx}" name="${c_list.p_price}"><fmt:formatNumber value="${c_list.p_price*(100-c_list.p_sale)/100 *c_list.c_cnt}" pattern="#,###" />원</span>
+                                        <em id="item__Price${c_list_c_idx}" name="${c_list.p_price}">
+                                        <input type="hidden" id="c_price_input${c_list_c_idx}" value="${c_list.c_price}">
+                                        <fmt:formatNumber value="${c_list.c_price}" pattern="#,###" />원</em>
                                     </td>
                                     <td class="text-center">
-                                        <input class="btn btn-outline-dark" type="button" value="삭제" onclick="deleteCart()">
+                                        <button class="btn btn-outline-dark deleteCart"  type="button" value="삭제" id="deleteCart${c_list.c_idx}" name="${c_list.c_idx}">X</button>
                                     </td>
                                 </tr>
                             </tbody>

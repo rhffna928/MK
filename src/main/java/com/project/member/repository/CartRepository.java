@@ -36,4 +36,8 @@ public class CartRepository {
     public int getCartUpdate(CartDTO cartDTO) {
         return sql.update("Cart.update",cartDTO);
     }
+
+    public int getCartDelete(CartDTO cartDTO) {
+        return sql.delete("Cart.delete",cartDTO);
+    }
 }

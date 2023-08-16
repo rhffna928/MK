@@ -94,9 +94,15 @@ public class AjaxController {
         String result = "N";
         int flag = ajaxService.getCartUpdate(cartDTO);
         if(flag == 1) result = "Y";
-        System.out.println(cartDTO);
-        System.out.println(flag);
         return result;
     }
 
+    @PostMapping("/cartDelete.do")
+    public String cartDelete(@ModelAttribute CartDTO cartDTO){
+        String result = "N";
+        int flag = ajaxService.getCartDelete(cartDTO);
+        if(flag == 1) result = "Y";
+        System.out.println("delete"+cartDTO);
+        return result;
+    }
 }

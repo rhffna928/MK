@@ -62,17 +62,18 @@
                                         </td>
                                     </th>
                                 </tr>
-                                <!--
                                 <tr>
-                                    <th class="table table-light">아이디</th>
+                                    <th class="table table-light">주소</th>
                                         <td>
-                                            <input type="text" name="m_id" value="">
+                                            <input type="text" name="m_addr1" value="${m_modi.m_addr1}">
+                                            <input type="text" name="m_addr2" value="${m_modi.m_addr2}">
+                                            <input type="text" name="m_addr3" value="${m_modi.m_addr3}">
                                         </td>
                                         <td>
-                                            <input type="button" class="btn btn-light" id="changeId" value="아이디변경"/>
+                                            <input type="button" class="btn btn-light" id="changeId" value="주소변경"/>
                                         </td>
                                     </th>
-                                </tr>-->
+                                </tr>
                             </table>
                          </form>
                     </div>
