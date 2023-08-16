@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Order">
+    <insert id="orderInfo">
+        insert into orders( m_idx, o_rec, m_addr1, m_addr2, m_addr3, o_tel, o_totalprice)
+        values( #{m_idx}, #{o_rec}, #{m_addr1}, #{m_addr2}, #{m_addr3}, #{o_tel}, #{o_totalprice})
+    </insert>
+
+    <!-- 주문 상세 정보 -->
+    <insert id="orderInfo_Details">
+        insert into tbl_order_details(orderDetailsNum, orderId, gdsNum, cartStock)
+        select tbl_order_details_seq.nextval, #{orderId}, gdsNum, cartStock
+        from tbl_cart
+    </insert>
+</mapper>

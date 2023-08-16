@@ -6,7 +6,33 @@
 <html>
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script>
+$(document).ready(function(){
 
+    $("#changeAddr").click(function(){
+
+        let m_idx = $(this).attr("name");
+        let m_addr1 = $("#m_addr1").val();
+        let m_addr2 = $("#m_addr2").val();
+        let m_addr3 = $("#m_addr3").val();
+        $.ajax({
+            type : "post",
+            url : "${pageContext.request.contextPath}/changeAddr.do",
+            data : {"m_idx":m_idx,
+                "m_addr1":m_addr1,
+                "m_addr2":m_addr2,
+                "m_addr3":m_addr3
+            },
+            success : function(data){
+                if(data=="Y"){
+                }else{
+                console.log("plus x");
+                }
+            },
+            error: function(error){alert(error);}
+        });
+    });
+
+});
 </script>
 <head>
 <title>판매리스트</title>
@@ -22,6 +48,7 @@
                     <div>
                          <form name="frm">
                             <table border="1" class="table table-light" >
+                                <input type="hidden" name="m_idx" value="${member.m_idx}">
                                 <tr>
                                     <th class="table table-light">이메일</th>
                                         <td>
@@ -65,12 +92,12 @@
                                 <tr>
                                     <th class="table table-light">주소</th>
                                         <td>
-                                            <input type="text" name="m_addr1" value="${m_modi.m_addr1}">
-                                            <input type="text" name="m_addr2" value="${m_modi.m_addr2}">
-                                            <input type="text" name="m_addr3" value="${m_modi.m_addr3}">
+                                            <input type="text" name="m_addr1" id="m_addr1" value="${m_modi.m_addr1}"><button></button>
+                                            <input type="text" name="m_addr2" id="m_addr2" value="${m_modi.m_addr2}">
+                                            <input type="text" name="m_addr3" id="m_addr3" value="${m_modi.m_addr3}">
                                         </td>
                                         <td>
-                                            <input type="button" class="btn btn-light" id="changeId" value="주소변경"/>
+                                            <button type="button" class="btn btn-light" id="changeAddr" name="${member.m_idx}">주소변경</button>
                                         </td>
                                     </th>
                                 </tr>

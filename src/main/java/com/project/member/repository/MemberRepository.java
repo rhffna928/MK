@@ -37,4 +37,8 @@ public class MemberRepository {
     public MemberDTO getMemberInfo(int m_idx) {
         return sql.selectOne("Member.memberInfo",m_idx);
     }
+
+    public int getChangeAddr(MemberDTO memberDTO) {
+        return sql.update("Member.changeAddr", memberDTO);
+    }
 }

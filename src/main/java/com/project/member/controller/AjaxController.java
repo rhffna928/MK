@@ -1,6 +1,7 @@
 package com.project.member.controller;
 
 import com.project.member.dto.CartDTO;
+import com.project.member.dto.MemberDTO;
 import com.project.member.service.AjaxService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
@@ -103,6 +104,14 @@ public class AjaxController {
         int flag = ajaxService.getCartDelete(cartDTO);
         if(flag == 1) result = "Y";
         System.out.println("delete"+cartDTO);
+        return result;
+    }
+    @PostMapping("/changeAddr.do")
+    public String changeAddr(@ModelAttribute MemberDTO memberDTO){
+        String result = "N";
+        int flag = ajaxService.getChangeAddr(memberDTO);
+        if(flag == 1) result = "Y";
+
         return result;
     }
 }
