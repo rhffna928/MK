@@ -4,6 +4,8 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.util.Date;
+
 @Getter
 @Setter
 @ToString
@@ -16,5 +18,5 @@ public class OrderDTO {
     private String m_addr3;
     private String o_tel;
     private int o_totalprice;
-    private String o_date;
+    private Date o_date;
 }

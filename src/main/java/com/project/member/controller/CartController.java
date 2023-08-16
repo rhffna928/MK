@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.sql.Array;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 @Controller
@@ -45,8 +46,9 @@ public class CartController {
         cartDTO.setM_idx(m_idx);
 
         List<CartDTO> carlist = cartService.getCartList(cartDTO);
-
+        HashMap<String, Object> productPrice = cartService.getProductPrice(m_idx);
         model.addAttribute("cartlist", carlist);
+        model.addAttribute("productPrice", productPrice);
         System.out.println(carlist);
         return "/cart/cartList";
     }

@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import java.util.HashMap;
 import java.util.List;
 
 @Repository
@@ -39,5 +40,9 @@ public class CartRepository {
 
     public int getCartDelete(CartDTO cartDTO) {
         return sql.delete("Cart.delete",cartDTO);
+    }
+
+    public HashMap<String, Object> getProductPrice(int m_idx) {
+        return sql.selectOne("Cart.productPrice",m_idx);
     }
 }

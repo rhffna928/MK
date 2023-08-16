@@ -5,6 +5,7 @@ import com.project.member.repository.CartRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
 
 @Service
@@ -34,5 +35,9 @@ public class CartService {
 
     public CartDTO getCartCnt(int m_idx) {
         return cartRepository.getCartCnt(m_idx);
+    }
+
+    public HashMap<String, Object> getProductPrice(int m_idx) {
+        return cartRepository.getProductPrice(m_idx);
     }
 }
