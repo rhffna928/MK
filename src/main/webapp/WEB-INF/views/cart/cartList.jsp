@@ -209,6 +209,34 @@ $(".c_checkbox").on("click", function(){
             // 최종 가격(총 가격 + 배송비)
             $(".finalTotalPrice_span").text(finalTotalPrice.toLocaleString());
     }
+    $(".order_btn").on("click", function(){
+
+    	let form_contents ='';
+    	let orderNumber = 0;
+
+
+    	$(".cart_info_div").each(function(index, element){
+
+    		if($(element).find(".c_checkbox").is(":checked") === true){	//체크여부
+
+    			let p_idx = $(element).find("#p_idx_input").val();
+    			let c_cnt = $(element).find("#c_cnt_input").val();
+
+    			let p_idx_input = "<input name='orders[" + orderNumber + "].p_idx' type='hidden' value='" + p_idx + "'>";
+    			form_contents += p_idx_input;
+
+    			let c_cnt_input = "<input name='orders[" + orderNumber + "].c_cnt' type='hidden' value='" + c_cnt + "'>";
+    			form_contents += c_cnt_input;
+
+    			orderNumber += 1;
+
+    		}
+    	});
+
+    	$(".order_form").html(form_contents);
+    	$(".order_form").submit();
+
+    });
 
 });
 function c_idx_Array(){
@@ -251,7 +279,7 @@ $(document).ready(function(){
 
     <!-- Section-->
 <section class="py-5">
-    <form name="frm">
+    <form name="frm" action="${pageContext.request.contextPath}/order.do" method="get" class="order_form">
         <div class="container px-4 px-lg-5 mt-5">
             <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-1 justify-content-center">
                 <div>
@@ -360,8 +388,7 @@ $(document).ready(function(){
                         </tr>
                         <tr>
                             <td colspan="7">
-                                <input type="hidden" id="c_idx_Arr" name="c_idx_Arr">
-                                <button type="button" id="order" class="btn btn-outline-dark" onclick="c_idx_Array();">결제하기</button>
+                                <button type="button" class="btn btn-outline-dark order_btn">주문하기</button>
                             </tb>
                         </tr>
                     </table>

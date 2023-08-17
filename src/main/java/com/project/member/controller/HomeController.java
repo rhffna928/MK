@@ -16,7 +16,7 @@ import javax.servlet.http.HttpSession;
 public class HomeController {
 
     private final CartService cartService;
-    @GetMapping("/index")
+    @GetMapping("/")
     public String index1(){
         return "index"; // => index.jsp 출력
     }

@@ -26,6 +26,12 @@
     <select id="memberInfo" resultType="member">
         select * from members where m_idx = #{m_idx}
     </select>
+    <update id="changeId" parameterType="member">
+        update members set m_id = #{m_id} where m_idx = #{m_idx}
+    </update>
+    <update id="changeTel" parameterType="member">
+        update members set m_tel = #{m_tel} where m_idx = #{m_idx}
+    </update>
     <update id="changeAddr" parameterType="member">
         update members set m_addr1 = #{m_addr1}, m_addr2 = #{m_addr2}, m_addr3 = #{m_addr3} where m_idx = #{m_idx}
     </update>

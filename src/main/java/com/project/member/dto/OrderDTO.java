@@ -19,4 +19,5 @@ public class OrderDTO {
     private String o_tel;
     private int o_totalprice;
     private Date o_date;
+
 }

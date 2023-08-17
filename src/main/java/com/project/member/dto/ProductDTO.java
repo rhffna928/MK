@@ -13,7 +13,7 @@ public class ProductDTO {
 
     private int p_idx;
     private String p_name;
-    private int P_price;
+    private int p_price;
     private int p_sale;
     private String p_img1;
     private String p_img2;
@@ -24,4 +24,5 @@ public class ProductDTO {
     private String p_del;
     private String p_cate_idx;
     private String p_cate_name;
+    private int totalprice;
 }

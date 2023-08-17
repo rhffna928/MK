@@ -106,12 +106,25 @@ public class AjaxController {
         System.out.println("delete"+cartDTO);
         return result;
     }
+    @PostMapping("/changeId.do")
+    public String changeId(@ModelAttribute MemberDTO memberDTO){
+        String result = "N";
+        int flag = ajaxService.getChangeId(memberDTO);
+        if(flag == 1) result = "Y";
+        return result;
+    }
+    @PostMapping("/changeTel.do")
+    public String changeTel(@ModelAttribute MemberDTO memberDTO){
+        String result = "N";
+        int flag = ajaxService.getChangeTel(memberDTO);
+        if(flag == 1) result = "Y";
+        return result;
+    }
     @PostMapping("/changeAddr.do")
     public String changeAddr(@ModelAttribute MemberDTO memberDTO){
         String result = "N";
         int flag = ajaxService.getChangeAddr(memberDTO);
         if(flag == 1) result = "Y";
-
         return result;
     }
 }

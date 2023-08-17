@@ -3,15 +3,25 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="Order">
+    <select id="productInfo" parameterType="product" resultType="product">
+        select p.p_idx, p.p_name, p.p_img1, p.p_price, p.p_sale,
+        c.c_cnt*(p.p_price*(100-p.p_sale)/100) as totalprice,
+        c.c_cnt, c.c_idx
+        from product p left outer join cart c on p.p_idx = c.p_idx
+        where c.m_idx = #{m_idx};
+    </select>
+    <select id="info">
+        select * from cart c left outer join product p on c.p_idx = p.p_idx where c.m_idx = #{m_idx};
+    </select>
     <insert id="orderInfo">
-        insert into orders( m_idx, o_rec, m_addr1, m_addr2, m_addr3, o_tel, o_totalprice)
+        insert into orders(m_idx, o_rec, m_addr1, m_addr2, m_addr3, o_tel, o_totalprice)
         values( #{m_idx}, #{o_rec}, #{m_addr1}, #{m_addr2}, #{m_addr3}, #{o_tel}, #{o_totalprice})
     </insert>
 
     <!-- 주문 상세 정보 -->
     <insert id="orderInfo_Details">
-        insert into tbl_order_details(orderDetailsNum, orderId, gdsNum, cartStock)
-        select tbl_order_details_seq.nextval, #{orderId}, gdsNum, cartStock
-        from tbl_cart
+        insert into order_details(o_idx, p_idx, c_cnt)
+        select #{o_idx}, #{p_idx}, #{c_cnt}
+        from cart
     </insert>
 </mapper>

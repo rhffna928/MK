@@ -26,10 +26,6 @@ public class MemberDTO {
     private String m_ip;
     private String delyn;
 
-    public String toString(){
-        return "MemberDTO [m_id="+m_id+",m_pw"+m_pw+",m_email="+m_email+",m_tel="+m_tel+"m_grade="+m_grade+",m_tier="+m_tier+
-                ",m_gender="+m_gender+",m_jumin="+m_jumin+",m_writeday="+m_writeday
-                +",m_ip="+m_ip+",delyn="+delyn+"]";
-    }
+
 
 }

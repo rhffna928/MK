@@ -81,7 +81,7 @@ public class MemberController {
         HttpSession Session = request.getSession();
         Session.invalidate();
 
-        return "redirect:/index";
+        return "redirect:/";
     }
     @GetMapping("/searchId.do")
     public String searchIdForm(){

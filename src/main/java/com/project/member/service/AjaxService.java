@@ -57,8 +57,15 @@ public class AjaxService {
     public int getCartDelete(CartDTO cartDTO) {
         return cartRepository.getCartDelete(cartDTO);
     }
-
+    public int getChangeId(MemberDTO memberDTO) {
+        return memberRepository.getChangeId(memberDTO);
+    }
+    public int getChangeTel(MemberDTO memberDTO) {
+        return memberRepository.getChangeTel(memberDTO);
+    }
     public int getChangeAddr(MemberDTO memberDTO) {
         return memberRepository.getChangeAddr(memberDTO);
     }
+
+
 }
