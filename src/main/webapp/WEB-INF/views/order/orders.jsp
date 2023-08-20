@@ -95,6 +95,13 @@ function setTotalInfo(){
 					console.log(msg);
 				});//pay
 			});
+			function orderInsert(){
+                var formObj = $("form[name='order_form']");
+				formObj.attr("action", "${pageContext.request.contextPath}/orderInsert.do");
+            	formObj.attr("method", "post");
+            	formObj.submit();
+
+            }
 
 });
 function addr_btn(){
@@ -432,7 +439,7 @@ function showAddress(className){
             			<a class="btn btn-outline-dark order_btn">결제하기</a>
             		</div>
             		<!-- 주문 요청 -->
-            		<form class="order_form" action="/order" method="post">
+            		<form name="order_form" class="order_form" action="/order" method="post">
             			<!-- 주문자 회원번호 -->
             			<input name="m_idx" value="${member.m_idx}" type="hidden">
             			<!-- 주소록 & 받는이-->

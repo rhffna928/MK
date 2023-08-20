@@ -39,8 +39,8 @@ public class OrderController {
         System.out.println(productList);
         return "/order/orders";
     }
-    @PostMapping("/order")
-    public String orderPagePost(OrderDTO orderDTO, HttpServletRequest request) {
+    @PostMapping("/orderInsert.do")
+    public String orderInsert(OrderDTO orderDTO, HttpServletRequest request) {
 
         System.out.println(orderDTO);
 
