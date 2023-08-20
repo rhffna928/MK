@@ -8,6 +8,95 @@
 <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script>
+$(document).ready(function(){
+setTotalInfo();
+function setTotalInfo(){
+
+	let totalPrice = 0;				// 총 가격
+	let totalCount = 0;				// 총 갯수
+	let totalKind = 0;				// 총 종류
+	let totalSale = 0;				// 총 마일리지
+	let deliveryPrice = 0;			// 배송비
+	let usePoint = 0;				// 사용 포인트(할인가격)
+	let finalTotalPrice = 0; 		// 최종 가격(총 가격 + 배송비)
+
+	$(".product_price_td").each(function(index, element){
+		// 총 가격
+		totalPrice += parseInt($(element).find("#c_total_input").val());
+		// 총 종류
+		totalKind += 1;
+		// 총 마일리지
+		totalSale += parseInt($(element).find("#c_sale_input").val());
+	});
+
+	/* 배송비 결정 */
+	if(totalPrice >= 30000){
+		deliveryPrice = 0;
+	} else if(totalPrice == 0){
+		deliveryPrice = 0;
+	} else {
+		deliveryPrice = 3000;
+	}
+
+	finalTotalPrice = totalPrice + deliveryPrice - totalSale;
+
+
+	/* 값 삽입 */
+	// 총 가격
+	$(".totalPrice_span").text(totalPrice.toLocaleString());
+	// 총 갯수
+	$(".product_count").text(totalKind);
+	// 총 마일리지
+	$(".totalSale_span").text(totalSale.toLocaleString());
+	// 배송비
+	$(".delivery_price_span").text(deliveryPrice.toLocaleString());
+	// 최종 가격(총 가격 + 배송비)
+	$(".finalTotalPrice_span").text(finalTotalPrice.toLocaleString());
+
+}
+            var IMP = window.IMP;
+			var code = "imp21307716"; //가맹점 식별코드
+			IMP.init(code);
+
+			$(".order_btn").click(function(e){
+				//결제요청
+				IMP.request_pay({
+					//name과 amout만있어도 결제 진행가능
+					pg : 'kakaopay', //pg사 선택 (kakao, kakaopay  둘다 가능 html5_inicis)
+					pay_method: $("input[name='orders_payment']").val() ,
+					merchant_uid : 'merchant_' + new Date().getTime(),
+					name : $("input[name='p_name_input']").val(), // 상품명
+					amount : $("input[name='productPrice']").val(), //주문 가격
+					buyer_name : $("input[name=m_id]").val(), //주문자
+				  	buyer_phone : $("input[name=o_tel]").val(), //번호
+					buyer_addr1: $("#m_addr1").val(),
+				  	buyer_addr2: $("#m_addr2").val(),
+				  	buyer_addr3: $("#m_addr3").val(),
+					//결제완료후 이동할 페이지 kko나 kkopay는 생략 가능
+					m_redirect_url : '${pageContext.request.contextPath}/index.do'
+				}, function(rsp){
+					if(rsp.success){//결제 성공시
+						var msg = '결제가 완료되었습니다';
+						var result = {
+						"imp_uid" : rsp.imp_uid,
+						"merchant_uid" : rsp.merchant_uid,
+						"pay_date" : new Date().getTime(),
+						"amount" : rsp.paid_amount,
+						"card_no" : rsp.apply_num,
+						"refund" : 'payed'
+						}
+						orderInsert();
+						console.log("결제성공 " + msg);
+					}
+					else{//결제 실패시
+						var msg = '결제에 실패했습니다';
+						msg += '에러 : ' + rsp.error_msg
+					}
+					console.log(msg);
+				});//pay
+			});
+
+});
 function addr_btn(){
 
     new daum.Postcode({
@@ -60,6 +149,11 @@ function showAddress(className){
 	$(".addressInfo_input_div_" + className).css('display', 'block');
 	$(".address_btn").css('backgroundColor', '#555');
     $(".address_btn"+className).css('backgroundColor', '#3c3838');
+    $(".addressInfo_input_div").each(function(i, obj){
+    	$(obj).find(".selectAddress").val("F");
+    });
+    /* 선택한 selectAdress T만들기 */
+    $(".addressInfo_input_div_" + className).find(".selectAddress").val("T");
 }
 </script>
 <head>
@@ -106,6 +200,63 @@ function showAddress(className){
 		.addressInfo_input_div_2 input{
 			padding: 6px 5px;
 		}
+.total_info_div{
+	position:absolute;
+	top: 550px;
+	right : 0;
+	width : 300px;
+	border : 1px solid #333;
+	border-top-width:2px;
+
+}
+.total_info_price_div{
+	width: 90%;
+    margin: auto;
+	position: relative;
+}
+.total_info_div ul{
+	list-style: none;
+}
+.total_info_div li{
+	text-align: right;
+	margin-top:10px;
+}
+.price_span_label{
+	float: left;
+}
+.price_total_li{
+	border-top: 1px solid #ddd;
+	padding-top: 20px;
+}
+.strong_red{
+	color: red;
+}
+.total_price_red{
+	font-size: 25px;
+}
+.total_price_label{
+	margin-top: 5px;
+}
+.point_li{
+    padding: 15px;
+    border-top: 1px solid #ddd;
+    margin: 10px -15px 0;
+}
+.total_info_btn_div{
+	border-top: 1px solid #ddd;
+    text-align: center;
+    padding: 15px 20px;
+}
+.order_btn{
+    display: inline-block;
+    font-size: 21px;
+    line-height: 50px;
+    width: 200px;
+    height: 50px;
+    background-color: #365fdd;
+    color: #fff;
+    font-weight: bold;
+}
 </style>
 <body>
 <%@ include file="/resources/include/header.jsp" %>
@@ -195,7 +346,7 @@ function showAddress(className){
                 <div>
                     <!--상품 총 수량-->
                     <div class="">
-                        주문상품<span class=""></span>개
+                        주문상품 <span class="product_count"></span> 개
                     </div>
                     <!--상품테이블-->
                     <table class="table">
@@ -225,16 +376,22 @@ function showAddress(className){
                                         <!--이미지-->
                                         <img class="card navbar-toggler-icon " src="\resources\images${p_List.p_img1}" alt="..." />
                                     </td>
-                                    <td>
+                                    <td class="product_price_td">
                                         ${p_List.p_name}
                                         <input type="hidden" class="m_idx" id="m_idx" value="${member.m_idx}">
-                                        <input type="hidden" class="" id="" value="">
-                                        <input type="hidden" class="" id="" value="">
-                                        <input type="hidden" class="" id="" value="">
-                                        <input type="hidden" class="" id="" value="">
+                                        <input type="hidden" id="m_idx_input" value="${p_List.m_idx}">
+                                        <input type="hidden" id="p_idx_input" value="${p_List.p_idx}">
+                                        <input type="hidden" id="c_cnt_input" value="${p_List.c_cnt}">
+                                        <input type="hidden" id="p_sale_input" value="${p_List.p_sale}">
+                                        <input type="hidden" name="p_name_input" id="p_name_input" value="${p_List.p_name}">
+                                        <input type="hidden" id="c_p_price_input${p_List.c_idx}" value="${p_List.p_price}">
+                                        <input type="hidden" id="c_total_input" value="${p_List.p_price*p_List.c_cnt}">
+                                        <input type="hidden" name="finalprice" id="finalprice" value="${p_List.p_price*(100-p_List.p_sale)/100*p_List.c_cnt}">
+                                        <input type="hidden" id="c_sale_input" value="${(p_List.p_price*p_List.p_sale/100)*p_List.c_cnt}">
+
                                     </td>
                                     <td>
-                                        ${p_List.totalprice}
+                                        <fmt:formatNumber value="${p_List.p_price*(100-p_List.p_sale)/100*p_List.c_cnt}" pattern="#,###" />원
                                     </td>
                                 </tr>
                             </c:forEach>
@@ -243,6 +400,49 @@ function showAddress(className){
                 </div>
                 <!--포인트정보-->
                 <!--주문종합 정보-->
+            	<div class="total_info_div">
+            		<!-- 가격 종합 정보 -->
+            		<div class="total_info_price_div">
+            			<ul>
+            				<li>
+            					<span class="price_span_label">상품 금액</span>
+            					<span class="totalPrice_span"></span>원
+            				</li>
+            				<li>
+            					<span class="price_span_label">배송비</span>
+            					<span class="delivery_price_span"></span>원
+            				</li>
+            																		<li>
+            					<span class="price_span_label">할인금액</span>
+            					<span class="totalSale_span"></span>원
+            				</li>
+            				<li class="price_total_li">
+            					<strong class="price_span_label total_price_label">최종 결제 금액</strong>
+            					<input type="hidden" name="productPrice" id="productPrice" value="${productPrice.totalprice}">
+            					<strong class="strong_red">
+            						<span class="total_price_red finalTotalPrice_span">
+
+            						</span>원
+            					</strong>
+            				</li>
+            			</ul>
+            		</div>
+            		<!-- 버튼 영역 -->
+            		<div class="total_info_btn_div">
+            			<a class="btn btn-outline-dark order_btn">결제하기</a>
+            		</div>
+            		<!-- 주문 요청 -->
+            		<form class="order_form" action="/order" method="post">
+            			<!-- 주문자 회원번호 -->
+            			<input name="m_idx" value="${member.m_idx}" type="hidden">
+            			<!-- 주소록 & 받는이-->
+            			<input name="o_rec" type="hidden">
+            			<input name="m_addr1" type="hidden">
+            			<input name="m_addr2" type="hidden">
+            			<input name="m_addr3" type="hidden">
+            			<!-- 상품 정보 -->
+            		</form>
+            	</div>
             </div>
         </div>
     </div>

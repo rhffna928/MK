@@ -14,7 +14,6 @@ public class CartDTO {
     private int p_idx;
     private int c_cnt;
     private String c_delyn;
-
     private int cnt;
     private String p_img1;
     private int p_sale;

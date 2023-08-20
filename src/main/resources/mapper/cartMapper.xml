@@ -14,10 +14,10 @@
         order by a.c_idx desc
     </select>
     <select id="productPrice" resultType="HashMap">
-        select *
+        select SUBSTRING_INDEX(totalprice,'.', 1) as totalprice
         from  (select sum(c_cnt*(p_price*(100-b.p_sale)/100)) as totalprice
         from cart a join product b on a.p_idx=b.p_idx join members d on a.m_idx=d.m_idx
-        where a.m_idx= #{m_idx}) t;
+        where a.m_idx=2) t
     </select>
     <update id="cartPlus" parameterType="cart">
         update cart

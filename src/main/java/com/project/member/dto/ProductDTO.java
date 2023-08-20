@@ -25,4 +25,7 @@ public class ProductDTO {
     private String p_cate_idx;
     private String p_cate_name;
     private int totalprice;
+    private int c_idx;
+    private int m_idx;
+    private int c_cnt;
 }

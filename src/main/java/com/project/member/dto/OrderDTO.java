@@ -19,5 +19,13 @@ public class OrderDTO {
     private String o_tel;
     private int o_totalprice;
     private Date o_date;
+    private int c_cnt;
+    private int totalprice;
+    private int p_idx;
+    private int p_sale;
+    private String p_img1;
+    private String p_img2;
+    private String p_name;
+
 
 }

@@ -5,13 +5,12 @@
 <mapper namespace="Order">
     <select id="productInfo" parameterType="product" resultType="product">
         select p.p_idx, p.p_name, p.p_img1, p.p_price, p.p_sale,
-        c.c_cnt*(p.p_price*(100-p.p_sale)/100) as totalprice,
         c.c_cnt, c.c_idx
         from product p left outer join cart c on p.p_idx = c.p_idx
-        where c.m_idx = #{m_idx};
+        where c.m_idx = #{m_idx}
     </select>
     <select id="info">
-        select * from cart c left outer join product p on c.p_idx = p.p_idx where c.m_idx = #{m_idx};
+        select * from cart c left outer join product p on c.p_idx = p.p_idx where c.m_idx = #{m_idx}
     </select>
     <insert id="orderInfo">
         insert into orders(m_idx, o_rec, m_addr1, m_addr2, m_addr3, o_tel, o_totalprice)
