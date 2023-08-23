@@ -96,7 +96,34 @@ function setTotalInfo(){
 				});//pay
 			});
 			function orderInsert(){
+			    let form_contents ='';
+    	        let orderNumber = 0;
                 var formObj = $("form[name='order_form']");
+                $(".addressInfo_input_div").each(function(i, obj){
+                	if($(obj).find(".selectAddress").val() === 'T'){
+                		$("input[name='o_rec']").val($(obj).find(".o_rec_input").val());
+                		$("input[name='m_addr1']").val($(obj).find(".address1_input").val());
+                		$("input[name='m_addr2']").val($(obj).find(".address2_input").val());
+                		$("input[name='m_addr3']").val($(obj).find(".address3_input").val());
+                		$("input[name='o_tel']").val($(obj).find(".o_tel_input").val());
+                	}
+                });
+                $(".product_price_td").each(function(index, element){
+
+                	let p_idx = $(element).find("#p_idx_input").val();
+                	let p_cnt = $(element).find("#p_cnt_input").val();
+                	let c_idx = $(element).find("#c_idx_input").val();
+                	let c_cnt = $(element).find("#c_cnt_input").val();
+
+                	let p_idx_input = "<input name='orders[" + index + "].p_idx' type='hidden' value='" + p_idx + "'>";
+                	form_contents += p_idx_input;
+                	let p_cnt_input = "<input name='orders[" + index + "].p_cnt' type='hidden' value='" + p_cnt + "'>";
+                	form_contents += p_cnt_input;
+                	let c_cnt_input = "<input name='orders[" + index + "].c_cnt' type='hidden' value='" + c_cnt + "'>";
+                	form_contents += c_cnt_input;
+
+                });
+                formObj.append(form_contents);
 				formObj.attr("action", "${pageContext.request.contextPath}/orderInsert.do");
             	formObj.attr("method", "post");
             	formObj.submit();
@@ -309,10 +336,17 @@ function showAddress(className){
                                         <td>
                                         ${member.m_addr1} ${member.m_addr2}<br>${member.m_addr3}
                                         <input class="selectAddress" value="T" type="hidden">
-                                        <input class="address_input" value="${member.m_id}" type="hidden">
-                                        <input class="address1_input" value="${member.m_addr1}" type="hidden">
-                                        <input class="address2_input" value="${member.m_addr2}" type="hidden">
-                                        <input class="address3_input" value="${member.m_addr3}" type="hidden">
+                                        <input class="o_rec_input" name="o_rec" value="${member.m_id}" type="hidden">
+                                        <input class="address1_input" name="m_addr1" value="${member.m_addr1}" type="hidden">
+                                        <input class="address2_input" name="m_addr2" value="${member.m_addr2}" type="hidden">
+                                        <input class="address3_input" name="m_addr3" value="${member.m_addr3}" type="hidden">
+                                        <input class="o_tel_input" name="o_tel" value="${member.m_tel}" type="hidden">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>전화번호</th>
+                                    <td>
+                                        ${member.m_tel}
                                     </td>
                                 </tr>
                             </tbody>
@@ -328,7 +362,7 @@ function showAddress(className){
                                 <tr>
                                     <th>이름</th>
                                     <td>
-                                        <input class="input" type="text" >
+                                        <input class="input" type="text" name="o_rec">
                                     </td>
                                 </tr>
                                 <tr>
@@ -339,10 +373,17 @@ function showAddress(className){
                                         <input type="text" name="m_addr2" id="m_addr2" readonly><br>
                                         <input type="text" name="m_addr3" id="m_addr3" placeholder="상세주소 입력란">
                                         <input class="selectAddress" value="F" type="hidden">
-                                        <input class="address_input" value="${member.m_id}" type="hidden">
-                                        <input class="address1_input" value="${member.m_addr1}" type="hidden">
-                                        <input class="address2_input" value="${member.m_addr2}" type="hidden">
-                                        <input class="address3_input" value="${member.m_addr3}" type="hidden">
+                                        <input class="address_input" name="o_rec" value="${member.m_id}" type="hidden">
+                                        <input class="address1_input" name="m_addr1" value="${member.m_addr1}" type="hidden">
+                                        <input class="address2_input" name="m_addr2" value="${member.m_addr2}" type="hidden">
+                                        <input class="address3_input" name="m_addr3" value="${member.m_addr3}" type="hidden">
+                                        <input class="o_tel_input" name="o_tel" value="${member.m_tel}" type="hidden">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>전화번호</th>
+                                    <td>
+                                        <input class="input" type="text" name="o_tel">
                                     </td>
                                 </tr>
                             </tbody>
@@ -389,6 +430,8 @@ function showAddress(className){
                                         <input type="hidden" id="m_idx_input" value="${p_List.m_idx}">
                                         <input type="hidden" id="p_idx_input" value="${p_List.p_idx}">
                                         <input type="hidden" id="c_cnt_input" value="${p_List.c_cnt}">
+                                        <input type="hidden" id="c_idx_input" value="${p_List.c_idx}">
+                                        <input type="hidden" id="p_cnt_input" value="${p_List.p_cnt}">
                                         <input type="hidden" id="p_sale_input" value="${p_List.p_sale}">
                                         <input type="hidden" name="p_name_input" id="p_name_input" value="${p_List.p_name}">
                                         <input type="hidden" id="c_p_price_input${p_List.c_idx}" value="${p_List.p_price}">
@@ -439,7 +482,7 @@ function showAddress(className){
             			<a class="btn btn-outline-dark order_btn">결제하기</a>
             		</div>
             		<!-- 주문 요청 -->
-            		<form name="order_form" class="order_form" action="/order" method="post">
+            		<form name="order_form" class="order_form">
             			<!-- 주문자 회원번호 -->
             			<input name="m_idx" value="${member.m_idx}" type="hidden">
             			<!-- 주소록 & 받는이-->
@@ -447,6 +490,8 @@ function showAddress(className){
             			<input name="m_addr1" type="hidden">
             			<input name="m_addr2" type="hidden">
             			<input name="m_addr3" type="hidden">
+            			<input name="o_tel" type="hidden">
+            			<input name="o_totalprice" type="hidden" value="${productPrice.totalprice}">
             			<!-- 상품 정보 -->
             		</form>
             	</div>

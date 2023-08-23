@@ -9,7 +9,9 @@ import lombok.ToString;
 @ToString
 public class DetailDTO {
     private int d_idx;
-    private int o_idx;
+    private String o_idx;
     private int p_idx;
     private int c_cnt;
+    private int m_idx;
+    private int c_idx;
 }

@@ -10,7 +10,7 @@ import java.util.Date;
 @Setter
 @ToString
 public class OrderDTO {
-    private int o_idx;
+    private String o_idx;
     private int m_idx;
     private String o_rec;
     private String m_addr1;
@@ -22,6 +22,7 @@ public class OrderDTO {
     private int c_cnt;
     private int totalprice;
     private int p_idx;
+    private int p_cnt;
     private int p_sale;
     private String p_img1;
     private String p_img2;

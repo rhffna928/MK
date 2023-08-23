@@ -24,4 +24,11 @@
     <update id="p_Modi" parameterType="product">
         update product set p_name=#{p_name} p_price=#{p_price} p_sale=#{p_sale} p_img1=#{p_img1} p_cnt=#{p_cnt} p_cate_idx=#{p_cate_idx} p_cate_name=#{p_cate_name} where p_idx = #{p_idx};
     </update>
+    <update id="p_Cnt" parameterType="product">
+        update product
+        <![CDATA[
+        set p_cnt = p_cnt - #{c_cnt}
+        ]]>
+        where p_idx = #{p_idx}
+    </update>
 </mapper>

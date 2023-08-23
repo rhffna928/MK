@@ -10,19 +10,18 @@ $(document).ready(function(){
 
 setTotalInfo();
 
-$(".c_checkbox").on("change", function(){
-
-    setTotalInfo($(".cart_info_div"));
-});
-$(".all_check_input").on("change", function(){
-    if($(".all_check_input").is(":checked") == true){
+    $(".c_checkbox").on("change", function(){
+        setTotalInfo($(".cart_info_div"));
+    });
+    $(".all_check_input").on("change", function(){
+        if($(".all_check_input").is(":checked") == true){
     		$(".c_checkbox").prop("checked", true);
     	} else if($(".all_check_input").is(":checked") == false){
     	$(".c_checkbox").prop("checked", false);
         }
     	setTotalInfo($(".cart_info_div"));
-});
-$(".c_checkbox").on("click", function(){
+    });
+    $(".c_checkbox").on("click", function(){
 
 		let totalCheckbox=0;
 		let totalChecked =0;
@@ -58,7 +57,7 @@ $(".c_checkbox").on("click", function(){
 		let cntV = $(cnt_input).val();
 
 		$(cnt_input).val(++cntV);
-        setTotalInfo(cnt);
+        setTotalInfo(".cart_info_div");
 	});
 
     $(".minus").on("click", function(){
@@ -75,11 +74,11 @@ $(".c_checkbox").on("click", function(){
 			if(cntV > 1){
 				$(cnt_input).val(--cntV);
 			}
-        setTotalInfo(cnt);
+        setTotalInfo(".cart_info_div");
 	});
 	$(".plus").on("click", function(){
 
-    	let c_idx = $(this).attr("name");
+        let c_idx = $(this).attr("name");
     	//let c_cnt_input = $('input[id="c_cnt_input"]');
     	let m_idx_input = $('input[id="m_idx_input"]');
     	let p_idx_input = $('input[id="p_idx_input"]');
@@ -87,6 +86,13 @@ $(".c_checkbox").on("click", function(){
     	let c_cnt = $(this).parent().find('input[name="c_cnt"]').val();
     	let m_idx = $(m_idx_input).val();
     	let p_idx = $(p_idx_input).val();
+    	let p_price = $(this).val();
+    	let sale = "#sale_input"+c_idx;
+    	let sale_v = $(sale).val();
+
+    	let c_price = (p_price*(100-sale_v)/100)*c_cnt;
+        str = "<input type='hidden' id='c_price_input'"+c_idx+" value="+c_price+">"+c_price.toLocaleString()+"원";
+
     	$.ajax({
             type : "post",
             url : "${pageContext.request.contextPath}/cartUpdate.do",
@@ -97,6 +103,8 @@ $(".c_checkbox").on("click", function(){
             },
             success : function(data){
                 if(data=="Y"){
+                    document.getElementById('item__Price'+c_idx).innerHTML = "";
+                    document.getElementById('item__Price'+c_idx).innerHTML = str;
                     setTotalInfo();
                 }else{
                     console.log("plus x");
@@ -119,7 +127,7 @@ $(".c_checkbox").on("click", function(){
     	let sale_v = $(sale).val();
 
     	let c_price = (p_price*(100-sale_v)/100)*c_cnt;
-        str = "<input type='hidden' id='c_price_input'"+c_idx+" value="+c_price+">"+c_price.toLocaleString();
+        str = "<input type='hidden' id='c_price_input'"+c_idx+" value="+c_price+">"+c_price.toLocaleString()+"원";
      	$.ajax({
             type : "post",
             url : "${pageContext.request.contextPath}/cartUpdate.do",
@@ -210,56 +218,28 @@ $(".c_checkbox").on("click", function(){
             $(".finalTotalPrice_span").text(finalTotalPrice.toLocaleString());
     }
     $(".order_btn").on("click", function(){
-
-    	let form_contents ='';
-    	let orderNumber = 0;
-
-
-    	$(".cart_info_div").each(function(index, element){
-
-    		if($(element).find(".c_checkbox").is(":checked") === true){	//체크여부
-
-    			let p_idx = $(element).find("#p_idx_input").val();
-    			let c_cnt = $(element).find("#c_cnt_input").val();
-
-    			let p_idx_input = "<input name='orders[" + orderNumber + "].p_idx' type='hidden' value='" + p_idx + "'>";
-    			form_contents += p_idx_input;
-
-    			let c_cnt_input = "<input name='orders[" + orderNumber + "].c_cnt' type='hidden' value='" + c_cnt + "'>";
-    			form_contents += c_cnt_input;
-
-    			orderNumber += 1;
-
+        var c_idx_Arr = [];
+        $("input[type='checkbox']:checked").each(function(){
+    		if($(this).data('checked_c_idx') != null){
+    			c_idx_Arr.push($(this).data('checked_c_idx'));
     		}
     	});
+    	$("#c_idx_Arr").val(c_idx_Arr);
 
-    	$(".order_form").html(form_contents);
-    	$(".order_form").submit();
-
+    	var fm = document.frm;
+        var totalPrice = ${productPrice.totalprice}
+        if(totalprice = ""){
+            alert("담긴 상품이 없습니다.");
+        	return;
+        }
+        alert("전송합니다..");
+    	fm.action = "${pageContext.request.contextPath}/order.do";
+    	fm.method = "get";
+    	fm.submit();
+    	return;
     });
 
 });
-function c_idx_Array(){
-    var c_idx_Arr = [];
-    $("input[type='checkbox']:checked").each(function(){
-		if($(this).data('checked_c_idx') != null){
-			c_idx_Arr.push($(this).data('checked_c_idx'));
-		}
-	});
-	$("#c_idx_Arr").val(c_idx_Arr);
-
-	var fm = document.frm;
-    var totalPrice = ${productPrice.totalprice}
-    if(totalprice = ""){
-        alert("담긴 상품이 없습니다.");
-    	return;
-    }
-    alert("전송합니다..");
-	fm.action = "${pageContext.request.contextPath}/order.do";
-	fm.method = "get";
-	fm.submit();
-	return;
-}
 
 </script>
 <script>
@@ -279,7 +259,6 @@ $(document).ready(function(){
 
     <!-- Section-->
 <section class="py-5">
-    <form name="frm" action="${pageContext.request.contextPath}/order.do" method="get" class="order_form">
         <div class="container px-4 px-lg-5 mt-5">
             <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-1 justify-content-center">
                 <div>
@@ -322,6 +301,7 @@ $(document).ready(function(){
                                         <input type="hidden" id="m_idx_input" value="${c_list.m_idx}">
                                         <input type="hidden" id="p_idx_input" value="${c_list.p_idx}">
                                         <input type="hidden" id="c_cnt_input" value="${c_list.c_cnt}">
+                                        <input type="hidden" id="c_idx_input" value="${c_list.c_idx}">
                                         <input type="hidden" id="sale_input${c_list.c_idx}" value="${c_list.p_sale}">
                                         <input type="hidden" id="c_p_price_input${c_list.c_idx}" value="${c_list.p_price}">
                                         <input type="hidden" id="c_total_input" value="${c_list.p_price*c_list.c_cnt}">
@@ -348,11 +328,11 @@ $(document).ready(function(){
                                             <fmt:formatNumber value="${c_list.p_price}" pattern="#,###" />원</span>
                                         </c:if>
                                     </div>
-                                    <span id="item_Price${c_list_c_idx}" name="${c_list.p_price}"><fmt:formatNumber value="${c_list.p_price*(100-c_list.p_sale)/100}" pattern="#,###" />원</span>
+                                    <span id="item_Price${c_list.c_idx}" name="${c_list.p_price}"><fmt:formatNumber value="${c_list.p_price*(100-c_list.p_sale)/100}" pattern="#,###" />원</span>
                                 </td>
                                 <td class="text-center">
-                                    <em id="item__Price${c_list_c_idx}" name="${c_list.p_price}">
-                                        <input type="hidden" id="c_price_input${c_list_c_idx}" value="${c_list.c_price}">
+                                    <em id="item__Price${c_list.c_idx}" name="${c_list.c_price}">
+                                        <input type="hidden" id="c_price_input${c_list.c_idx}" value="${c_list.c_price}">
                                     <fmt:formatNumber value="${c_list.c_price}" pattern="#,###" />원</em>
                                 </td>
                                 <td class="text-center">
@@ -380,7 +360,6 @@ $(document).ready(function(){
                                     최종 결제 금액 :
                                     <span class="finalTotalPrice_span">
                                     <input type="hidden" id="totalprice" name="totalprice" value="${productPrice.totalprice}">
-                                    <fmt:formatNumber value="${productPrice.totalprice}" pattern="#,###" />
                                     </span>
                                     원
                                 </div>
@@ -389,16 +368,14 @@ $(document).ready(function(){
                         <tr>
                             <td colspan="7">
                                 <button type="button" class="btn btn-outline-dark order_btn">주문하기</button>
+                                <form name="frm" action="${pageContext.request.contextPath}/order.do" method="get" class="order_form">
+                                </form>
                             </tb>
                         </tr>
                     </table>
                 </div>
             </div>
         </div>
-    </div>
-    </div>
-    </div>
-    </form>
 </section>
 <%@ include file="/resources/include/footer.jsp" %>
 </body>

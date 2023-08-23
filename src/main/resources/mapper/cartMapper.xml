@@ -38,4 +38,7 @@
     <delete id="delete" parameterType="cart">
         delete from cart where c_idx = #{c_idx} and m_idx = #{m_idx}
     </delete>
+    <delete id="orderdlt" parameterType="cart">
+        delete from cart where m_idx = #{m_idx}
+    </delete>
 </mapper>

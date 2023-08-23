@@ -1,6 +1,7 @@
 package com.project.member.controller;
 
 import com.project.member.dto.CartDTO;
+import com.project.member.dto.DetailDTO;
 import com.project.member.dto.OrderDTO;
 import com.project.member.dto.ProductDTO;
 import com.project.member.service.CartService;
@@ -15,6 +16,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.text.DecimalFormat;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 
@@ -26,7 +29,7 @@ public class OrderController {
     private final CartService cartService;
 
     @GetMapping("/order.do")
-    public String order(CartDTO cartDTO, OrderDTO orderDTO,
+    public String order(@RequestParam(value = "c_idxArr") List<String> c_idxArr, CartDTO cartDTO, OrderDTO orderDTO,
                         Model model, HttpServletRequest request){
         HttpSession Session = request.getSession();
         int m_idx = (int) Session.getAttribute("m_idx");
@@ -36,14 +39,31 @@ public class OrderController {
         model.addAttribute("productList",productList);
         model.addAttribute("productPrice", productPrice);
 
-        System.out.println(productList);
+        System.out.println(c_idxArr);
         return "/order/orders";
     }
     @PostMapping("/orderInsert.do")
-    public String orderInsert(OrderDTO orderDTO, HttpServletRequest request) {
+    public String orderInsert(OrderDTO orderDTO, DetailDTO detailDTO, HttpServletRequest request) {
 
-        System.out.println(orderDTO);
+        Calendar cal = Calendar.getInstance();
+        int year = cal.get(Calendar.YEAR);
+        String ym = year + new DecimalFormat("00").format(cal.get(Calendar.MONTH) + 1);
+        String ymd = ym +  new DecimalFormat("00").format(cal.get(Calendar.DATE));
+        String subNum = "";
 
+        for(int i = 1; i <= 6; i ++) {
+            subNum += (int)(Math.random() * 10);
+        }
+
+        String o_idx = ymd + "_" + subNum;
+        orderDTO.setO_idx(o_idx);
+        detailDTO.setO_idx(o_idx);
+        orderService.getupdatepcnt(orderDTO);
+        orderService.getorderdlt(orderDTO);
+        orderService.getinsertorder(orderDTO);
+        orderService.getinsertdetail(detailDTO);
+        System.out.println("주문 : "+orderDTO);
+        System.out.println("주문디테일 : "+detailDTO);
         return "redirect:/index.do";
     }
 

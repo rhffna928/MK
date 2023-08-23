@@ -5,20 +5,20 @@
 <mapper namespace="Order">
     <select id="productInfo" parameterType="product" resultType="product">
         select p.p_idx, p.p_name, p.p_img1, p.p_price, p.p_sale,
-        c.c_cnt, c.c_idx
+        c.c_cnt, c.c_idx, p.p_cnt
         from product p left outer join cart c on p.p_idx = c.p_idx
         where c.m_idx = #{m_idx}
     </select>
     <select id="info">
         select * from cart c left outer join product p on c.p_idx = p.p_idx where c.m_idx = #{m_idx}
     </select>
-    <insert id="orderInfo">
-        insert into orders(m_idx, o_rec, m_addr1, m_addr2, m_addr3, o_tel, o_totalprice)
-        values( #{m_idx}, #{o_rec}, #{m_addr1}, #{m_addr2}, #{m_addr3}, #{o_tel}, #{o_totalprice})
-    </insert>
 
+    <insert id="orderInfo">
+        insert into orders(o_idx, m_idx, o_rec, m_addr1, m_addr2, m_addr3, o_tel, o_totalprice)
+        values(#{o_idx}, #{m_idx}, #{o_rec}, #{m_addr1}, #{m_addr2}, #{m_addr3}, #{o_tel}, #{o_totalprice})
+    </insert>
     <!-- 주문 상세 정보 -->
-    <insert id="orderInfo_Details">
+    <insert id="detailsInfo">
         insert into order_details(o_idx, p_idx, c_cnt)
         select #{o_idx}, #{p_idx}, #{c_cnt}
         from cart
