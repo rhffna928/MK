@@ -219,12 +219,16 @@ setTotalInfo();
     }
     $(".order_btn").on("click", function(){
         var c_idx_Arr = [];
+        var p_idx_Arr = [];
+
         $("input[type='checkbox']:checked").each(function(){
     		if($(this).data('checked_c_idx') != null){
     			c_idx_Arr.push($(this).data('checked_c_idx'));
+    			p_idx_Arr.push($(this).data('checked_p_idx'));
     		}
     	});
-    	$("#c_idx_Arr").val(c_idx_Arr);
+    	$("#c_idxArr").val(c_idx_Arr);
+    	$("#p_idxArr").val(p_idx_Arr);
 
     	var fm = document.frm;
         var totalPrice = ${productPrice.totalprice}
@@ -297,7 +301,7 @@ $(document).ready(function(){
                             <tr>
                                 <td class="text-center">
                                     <div class="cart_info_div">
-                                        <input class="form-check-input c_checkbox" type="checkbox" id="chkbox${c_list.c_idx}" data-checked_c_idx="${c_list.c_idx}" value="${c_list.c_idx}" onclick="" checked>
+                                        <input class="form-check-input c_checkbox" type="checkbox" id="chkbox${c_list.c_idx}" data-checked_c_idx="${c_list.c_idx}" data-checked_p_idx="${c_list.p_idx}" value="${c_list.c_idx}" onclick="" checked>
                                         <input type="hidden" id="m_idx_input" value="${c_list.m_idx}">
                                         <input type="hidden" id="p_idx_input" value="${c_list.p_idx}">
                                         <input type="hidden" id="c_cnt_input" value="${c_list.c_cnt}">
@@ -369,6 +373,8 @@ $(document).ready(function(){
                             <td colspan="7">
                                 <button type="button" class="btn btn-outline-dark order_btn">주문하기</button>
                                 <form name="frm" action="${pageContext.request.contextPath}/order.do" method="get" class="order_form">
+                                    <input type="hidden" name="c_idxArr" id="c_idxArr" value="">
+                                    <input type="hidden" name="p_idxArr" id="p_idxArr" value="">
                                 </form>
                             </tb>
                         </tr>

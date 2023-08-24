@@ -1,6 +1,7 @@
 package com.project.member.repository;
 
 import com.project.member.dto.MemberDTO;
+import com.project.member.dto.OrderDTO;
 import lombok.RequiredArgsConstructor;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
@@ -29,4 +30,7 @@ public class AdminRepository {
     }
 
 
+    public List<OrderDTO> orderList() {
+        return sql.selectList("Admin.o_list");
+    }
 }

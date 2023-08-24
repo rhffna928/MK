@@ -5,12 +5,13 @@ import lombok.Setter;
 import lombok.ToString;
 
 import java.util.Date;
-import java.util.List;
 
 @Getter
 @Setter
 @ToString
-public class OrderDTO {
+public class OrderListDTO {
+
+    private int d_idx;
     private String o_idx;
     private int m_idx;
     private String o_rec;
@@ -22,15 +23,11 @@ public class OrderDTO {
     private Date o_date;
     private int c_cnt;
     private int totalprice;
-    private int c_idx;
     private int p_idx;
     private int p_cnt;
+    private int c_idx;
     private int p_sale;
     private String p_img1;
     private String p_img2;
     private String p_name;
-    private String o_delivery;
-    private List<OrderListDTO> orders;
-
-
 }

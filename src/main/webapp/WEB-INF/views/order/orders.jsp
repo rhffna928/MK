@@ -60,7 +60,8 @@ function setTotalInfo(){
 
 			$(".order_btn").click(function(e){
 				//결제요청
-				IMP.request_pay({
+				orderInsert();
+				/*IMP.request_pay({
 					//name과 amout만있어도 결제 진행가능
 					pg : 'kakaopay', //pg사 선택 (kakao, kakaopay  둘다 가능 html5_inicis)
 					pay_method: $("input[name='orders_payment']").val() ,
@@ -93,12 +94,12 @@ function setTotalInfo(){
 						msg += '에러 : ' + rsp.error_msg
 					}
 					console.log(msg);
-				});//pay
+				});//pay */
 			});
 			function orderInsert(){
 			    let form_contents ='';
     	        let orderNumber = 0;
-                var formObj = $("form[name='order_form']");
+                var formObj = document.order_form;
                 $(".addressInfo_input_div").each(function(i, obj){
                 	if($(obj).find(".selectAddress").val() === 'T'){
                 		$("input[name='o_rec']").val($(obj).find(".o_rec_input").val());
@@ -121,11 +122,14 @@ function setTotalInfo(){
                 	form_contents += p_cnt_input;
                 	let c_cnt_input = "<input name='orders[" + index + "].c_cnt' type='hidden' value='" + c_cnt + "'>";
                 	form_contents += c_cnt_input;
+                    let c_idx_input = "<input name='orders[" + index + "].c_idx' type='hidden' value='" + c_idx + "'>";
+                	form_contents += c_idx_input;
 
                 });
-                formObj.append(form_contents);
-				formObj.attr("action", "${pageContext.request.contextPath}/orderInsert.do");
-            	formObj.attr("method", "post");
+
+                $(".order_form").append(form_contents);
+				formObj.action = "${pageContext.request.contextPath}/orderInsert.do";
+            	formObj.method = "post";
             	formObj.submit();
 
             }
@@ -314,8 +318,8 @@ function showAddress(className){
                 <!--배송지정보-->
                 <div class="address_Info">
                     <div class="addressInfo_btn_div">
-                        <button class="btn btn-dark btn:hover address_btn address_btn1" onclick="showAddress('1')" style="background-color: #3c3838;">사용자 정보</button>
-                        <button class="btn btn-dark btn:hover address_btn address_btn2" onclick="showAddress('2')">직접 입력</button>
+                        <button type="button" class="btn btn-dark btn:hover address_btn address_btn1" onclick="showAddress('1')" style="background-color: #3c3838;">사용자 정보</button>
+                        <button type="button" class="btn btn-dark btn:hover address_btn address_btn2" onclick="showAddress('2')">직접 입력</button>
                     </div>
                     <div class="address_input_wrap">
                         <div class="addressInfo_input_div addressInfo_input_div_1" style="display:block">
@@ -479,10 +483,10 @@ function showAddress(className){
             		</div>
             		<!-- 버튼 영역 -->
             		<div class="total_info_btn_div">
-            			<a class="btn btn-outline-dark order_btn">결제하기</a>
+            			<button type="button" class="btn btn-outline-dark order_btn">결제하기</button>
             		</div>
             		<!-- 주문 요청 -->
-            		<form name="order_form" class="order_form">
+                    <form name="order_form" class="order_form">
             			<!-- 주문자 회원번호 -->
             			<input name="m_idx" value="${member.m_idx}" type="hidden">
             			<!-- 주소록 & 받는이-->
@@ -491,9 +495,15 @@ function showAddress(className){
             			<input name="m_addr2" type="hidden">
             			<input name="m_addr3" type="hidden">
             			<input name="o_tel" type="hidden">
+            			<c:forEach items="${productList}" var="p_List">
+            			<input type="hidden" name="c_cnt" value="${p_List.c_cnt}">
+                        <input type="hidden" name="c_idx" value="${p_List.c_idx}">
+                        <input type="hidden" name="p_idx" value="${p_List.p_idx}">
+
+            			</c:forEach>
             			<input name="o_totalprice" type="hidden" value="${productPrice.totalprice}">
             			<!-- 상품 정보 -->
-            		</form>
+                    </form>
             	</div>
             </div>
         </div>

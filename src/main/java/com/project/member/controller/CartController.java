@@ -59,11 +59,11 @@ public class CartController {
         int m_idx = (int) Session.getAttribute("m_idx");
         cartDTO.setM_idx(m_idx);
 
-        List<CartDTO> carlist = cartService.getCartList(cartDTO);
+        List<CartDTO> cartlist = cartService.getCartList(cartDTO);
         HashMap<String, Object> productPrice = cartService.getProductPrice(m_idx);
-        model.addAttribute("cartlist", carlist);
+        model.addAttribute("cartlist", cartlist);
         model.addAttribute("productPrice", productPrice);
-        System.out.println(carlist);
+        System.out.println(cartlist);
         return "/cart/cartList";
     }
 }

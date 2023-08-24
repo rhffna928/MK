@@ -7,6 +7,7 @@ import com.project.member.repository.OrderRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
 
 @Service
@@ -35,6 +36,18 @@ public class OrderService {
     public int getinsertdetail(DetailDTO detailDTO) {
         return orderRepository.getinterdetail(detailDTO);
     }
+
+    public HashMap<String, Object> getTotalPrice(int m_idx, int c_idx) {
+        return orderRepository.getTotalPrice(m_idx,c_idx);
+    }
+
+    /*public List<ProductDTO> getProductInfo(int m_idx, int p_idx) {
+        return orderRepository.getProductInfo(m_idx, p_idx);
+    }*/
+
+    /*public List<ProductDTO> getProductInfo(ProductDTO productDTO) {
+        return orderRepository.getProductInfo(productDTO);
+    }*/
 
     /*public void getinsertdetail(DetailDTO detailDTO) {
     }*/

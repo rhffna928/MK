@@ -3,7 +3,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="Order">
-    <select id="productInfo" parameterType="product" resultType="product">
+    <select id="productInfo" resultType="HashMap">
         select p.p_idx, p.p_name, p.p_img1, p.p_price, p.p_sale,
         c.c_cnt, c.c_idx, p.p_cnt
         from product p left outer join cart c on p.p_idx = c.p_idx
@@ -12,15 +12,18 @@
     <select id="info">
         select * from cart c left outer join product p on c.p_idx = p.p_idx where c.m_idx = #{m_idx}
     </select>
-
+    <select id="totalPrice" resultType="HashMap">
+        select sum(b.p_price*a.c_cnt) as totalprice
+        from cart a join product b on a.p_idx=b.p_idx where a.m_idx= #{m_idx} and a.c_idx= #{c_idx};
+    </select>
     <insert id="orderInfo">
-        insert into orders(o_idx, m_idx, o_rec, m_addr1, m_addr2, m_addr3, o_tel, o_totalprice)
-        values(#{o_idx}, #{m_idx}, #{o_rec}, #{m_addr1}, #{m_addr2}, #{m_addr3}, #{o_tel}, #{o_totalprice})
+        insert into orders(o_idx, m_idx, o_rec, m_addr1, m_addr2, m_addr3, o_tel, o_totalprice, o_delivery)
+        values(#{o_idx}, #{m_idx}, #{o_rec}, #{m_addr1}, #{m_addr2}, #{m_addr3}, #{o_tel}, #{o_totalprice}, #{o_delivery})
     </insert>
     <!-- 주문 상세 정보 -->
     <insert id="detailsInfo">
         insert into order_details(o_idx, p_idx, c_cnt)
-        select #{o_idx}, #{p_idx}, #{c_cnt}
-        from cart
+        select #{o_idx}, p_idx, c_cnt
+        from cart where m_idx = #{m_idx}
     </insert>
 </mapper>

@@ -1,6 +1,7 @@
 package com.project.member.service;
 
 import com.project.member.dto.MemberDTO;
+import com.project.member.dto.OrderDTO;
 import com.project.member.repository.AdminRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -14,5 +15,9 @@ public class AdminService {
 
     public List<MemberDTO> memberlist() {
         return adminRepository.memberList();
+    }
+
+    public List<OrderDTO> orderlist() {
+        return adminRepository.orderList();
     }
 }

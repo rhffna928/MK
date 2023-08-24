@@ -2,11 +2,13 @@ package com.project.member.repository;
 
 import com.project.member.dto.DetailDTO;
 import com.project.member.dto.OrderDTO;
+import com.project.member.dto.OrderListDTO;
 import com.project.member.dto.ProductDTO;
 import lombok.RequiredArgsConstructor;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import java.util.HashMap;
 import java.util.List;
 
 @Repository
@@ -34,4 +36,12 @@ public class OrderRepository {
     public int getinterdetail(DetailDTO detailDTO) {
         return sql.insert("Order.detailsInfo",detailDTO);
     }
+
+    public HashMap<String, Object> getTotalPrice(int m_idx, int c_idx) {
+        HashMap<String, Object> pay = new HashMap<String, Object>();
+        pay.put("m_idx",m_idx);
+        pay.put("p_idx", c_idx);
+        return sql.selectOne("Order.totalPrice",pay);
+    }
+
 }

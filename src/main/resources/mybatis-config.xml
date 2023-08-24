@@ -6,6 +6,7 @@
         <typeAlias type="com.project.member.dto.MemberDTO" alias="member"></typeAlias>
         <typeAlias type="com.project.member.dto.ProductDTO" alias="product"></typeAlias>
         <typeAlias type="com.project.member.dto.CartDTO" alias="cart"></typeAlias>
+        <typeAlias type="com.project.member.dto.OrderDTO" alias="order"></typeAlias>
 
     </typeAliases>
 </configuration>

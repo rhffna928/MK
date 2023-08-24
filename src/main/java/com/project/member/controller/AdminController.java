@@ -1,6 +1,7 @@
 package com.project.member.controller;
 
 import com.project.member.dto.MemberDTO;
+import com.project.member.dto.OrderDTO;
 import com.project.member.service.AdminService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -24,5 +25,13 @@ public class AdminController {
         model.addAttribute("m_list",memberDTO);
 
         return "/admin/memberList";
+    }
+    @GetMapping("/orderList.do")
+    public String orderList(Model model, HttpServletRequest request){
+        List<OrderDTO> orderlist = adminService.orderlist();
+
+        model.addAttribute("o_list",orderlist);
+
+        return "/admin/orderList";
     }
 }

@@ -66,6 +66,7 @@
                                         <li><a class="dropdown-item" href="${pageContext.request.contextPath}/memberList.do">회원관리</a></li>
                                         <li><a class="dropdown-item" href="${pageContext.request.contextPath}/productAdd.do">상품등록</a></li>
                                         <li><a class="dropdown-item" href="${pageContext.request.contextPath}/productDetail.do">상품관리</a></li>
+                                        <li><a class="dropdown-item" href="${pageContext.request.contextPath}/orderList.do">주문관리</a></li>
                                         <li><a class="dropdown-item" href="${pageContext.request.contextPath}/Notice">고객센터</a></li>
                                     </ul>
                                 </li>
