@@ -210,7 +210,7 @@ setTotalInfo();
             $(".totalCount_span").text(totalCount);
             // 총 종류
             $(".totalKind_span").text(totalKind);
-            // 총 마일리지
+            // 총 세일금액
             $(".salePrice_span").text(salePrice.toLocaleString());
             // 배송비
             $(".delivery_price").text(deliveryPrice);
