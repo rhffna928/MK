@@ -22,6 +22,28 @@
         m_addr1, m_addr2, m_addr3,
         o_tel, o_totalprice, o_date, o_delivery
         from orders order by o_date desc;
+
+    </select>
+
+    <select id="total" resultType="int">
+        select count(*) from orders
+        <if test="keyword != null">
+            where o_rec like concat('%',#{keyword},'%')
+        </if>
+    </select>
+
+    <select id="o_list" resultType="order">
+        select
+        o_idx, m_idx, o_rec,
+        m_addr1, m_addr2, m_addr3,
+        o_tel, o_totalprice, o_date, o_delivery
+        from orders
+        <if test="keyword != null">
+            where o_rec like concat('%',#{keyword}, '%')
+        </if>
+        order by o_date desc
+        limit #{skip}, #{amount}
+
     </select>
 
 </mapper>

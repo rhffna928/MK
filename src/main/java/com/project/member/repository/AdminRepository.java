@@ -1,5 +1,6 @@
 package com.project.member.repository;
 
+import com.project.member.dto.Criteria;
 import com.project.member.dto.MemberDTO;
 import com.project.member.dto.OrderDTO;
 import lombok.RequiredArgsConstructor;
@@ -32,5 +33,9 @@ public class AdminRepository {
 
     public List<OrderDTO> orderList() {
         return sql.selectList("Admin.o_list");
+    }
+
+    public int getTotal(Criteria cri) {
+        return sql.selectOne("Admin.total", cri);
     }
 }

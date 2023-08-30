@@ -1,5 +1,6 @@
 package com.project.member.service;
 
+import com.project.member.dto.Criteria;
 import com.project.member.dto.MemberDTO;
 import com.project.member.dto.OrderDTO;
 import com.project.member.repository.AdminRepository;
@@ -19,5 +20,9 @@ public class AdminService {
 
     public List<OrderDTO> orderlist() {
         return adminRepository.orderList();
+    }
+
+    public int getTotal(Criteria cri) {
+        return adminRepository.getTotal(cri);
     }
 }
